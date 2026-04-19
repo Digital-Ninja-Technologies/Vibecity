@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VibeCity — Learn to Code Without Learning to Code</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --cyan:   #00f5d4;
+      --purple: #9b5de5;
+      --lime:   #b5f021;
+      --pink:   #f72585;
+      --bg:     #050811;
+      --surface: #0d1120;
+      --card:    #111827;
+      --border:  rgba(255,255,255,0.07);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: #e2e8f0;
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Exo 2', sans-serif;
+    }
+
+    /* ── NOISE GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ── GLOW ORBS ── */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.18;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .orb-cyan   { background: radial-gradient(circle, var(--cyan), #00c4a8); animation: orb-drift-1 18s ease-in-out infinite; }
+    .orb-purple { background: radial-gradient(circle, var(--purple), #6b2fa0); animation: orb-drift-2 22s ease-in-out infinite; }
+    .orb-pink   { background: radial-gradient(circle, var(--pink), #b01060); animation: orb-drift-3 16s ease-in-out infinite; }
+
+    /* orb 1 — wide arcing drift */
+    @keyframes orb-drift-1 {
+      0%   { transform: translate(0px,   0px)   scale(1);    }
+      20%  { transform: translate(60px, -40px)  scale(1.08); }
+      40%  { transform: translate(30px,  70px)  scale(0.95); }
+      60%  { transform: translate(-50px, 40px)  scale(1.05); }
+      80%  { transform: translate(-30px,-60px)  scale(1.1);  }
+      100% { transform: translate(0px,   0px)   scale(1);    }
+    }
+    /* orb 2 — slow circular drift */
+    @keyframes orb-drift-2 {
+      0%   { transform: translate(0px,   0px)   scale(1);    }
+      25%  { transform: translate(-70px, 50px)  scale(1.06); }
+      50%  { transform: translate(50px,  90px)  scale(0.92); }
+      75%  { transform: translate(80px, -50px)  scale(1.1);  }
+      100% { transform: translate(0px,   0px)   scale(1);    }
+    }
+    /* orb 3 — tight quick orbit */
+    @keyframes orb-drift-3 {
+      0%   { transform: translate(0px,  0px)   scale(1);    }
+      30%  { transform: translate(40px,-70px)  scale(1.12); }
+      55%  { transform: translate(-60px,-30px) scale(0.9);  }
+      80%  { transform: translate(30px, 60px)  scale(1.05); }
+      100% { transform: translate(0px,  0px)   scale(1);    }
+    }
+
+    /* ── GRADIENT TEXT ── */
+    .grad-text {
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 50%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .grad-text-lime {
+      background: linear-gradient(135deg, var(--lime) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #050811;
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(0,245,212,0.3);
+      white-space: nowrap;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 50px rgba(0,245,212,0.45);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #e2e8f0;
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 13px 30px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      backdrop-filter: blur(8px);
+    }
+    .btn-secondary:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 0 20px rgba(0,245,212,0.15);
+    }
+
+    .btn-lime {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--lime), var(--cyan));
+      color: #050811;
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 16px 40px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 35px rgba(181,240,33,0.3);
+    }
+    .btn-lime:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 55px rgba(181,240,33,0.5);
+    }
+
+    /* ── GLASSMORPHISM CARD ── */
+    .glass-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .glass-card:hover {
+      border-color: rgba(0,245,212,0.25);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,245,212,0.08);
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      border: 1px solid rgba(0,245,212,0.25);
+      background: rgba(0,245,212,0.07);
+      padding: 6px 16px;
+      border-radius: 50px;
+    }
+
+    /* ── DIVIDER LINE ── */
+    .glow-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
+      opacity: 0.4;
+    }
+
+    /* ── HERO GRID PATTERN ── */
+    .grid-pattern {
+      background-image:
+        linear-gradient(rgba(0,245,212,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,245,212,0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    /* ── FEATURE ICON RING ── */
+    .icon-ring {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    /* ── PRICING CARD ── */
+    .pricing-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px 32px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    .pricing-card.featured {
+      border-color: var(--cyan);
+      background: rgba(0,245,212,0.04);
+      box-shadow: 0 0 60px rgba(0,245,212,0.1);
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+    }
+    .pricing-card.featured:hover {
+      box-shadow: 0 0 80px rgba(0,245,212,0.18);
+    }
+
+    .price-old {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 1.1rem;
+      color: #6b7280;
+      text-decoration: line-through;
+      font-weight: 500;
+    }
+    .price-new {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    /* ── BADGE ── */
+    .badge-popular {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #050811;
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 18px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+
+    .feature-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(0,245,212,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── OUTCOME ITEM ── */
+    .outcome-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .outcome-item:hover {
+      border-color: rgba(181,240,33,0.3);
+      background: rgba(181,240,33,0.04);
+    }
+
+    /* ── SCROLL FADE IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(5,8,17,0.8);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      overflow: hidden;
+      background: rgba(0,245,212,0.05);
+      border-top: 1px solid rgba(0,245,212,0.1);
+      border-bottom: 1px solid rgba(0,245,212,0.1);
+      padding: 10px 0;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 60px;
+      animation: ticker 22s linear infinite;
+      width: max-content;
+    }
+    .ticker-item {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── PULSE DOT ── */
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--lime);
+      animation: pulse 1.8s ease-in-out infinite;
+      display: inline-block;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(181,240,33,0.5); }
+      50%       { box-shadow: 0 0 0 6px rgba(181,240,33,0); }
+    }
+
+    /* ── HERO BIG TEXT ── */
+    .hero-headline {
+      font-size: clamp(2.4rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    /* ── STAR RATING ── */
+    .stars { color: #fbbf24; font-size: 1rem; letter-spacing: 2px; }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-arrow-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: scroll-bob 2.2s ease-in-out infinite;
+      cursor: pointer;
+    }
+    @keyframes scroll-bob {
+      0%, 100% { transform: translateY(0);   opacity: 1;    }
+      50%       { transform: translateY(8px); opacity: 0.75; }
+    }
+    .scroll-arrow-track {
+      position: relative;
+      width: 44px;
+      height: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0;
+    }
+    /* animated dashes flowing downward */
+    .scroll-dash {
+      width: 2px;
+      border-radius: 2px;
+      background: var(--cyan);
+      animation: dash-flow 1.4s ease-in-out infinite;
+    }
+    .scroll-dash:nth-child(1) { height: 10px; animation-delay: 0s;    opacity: 0.3; }
+    .scroll-dash:nth-child(2) { height: 14px; animation-delay: 0.18s; opacity: 0.55; }
+    .scroll-dash:nth-child(3) { height: 10px; animation-delay: 0.36s; opacity: 0.8; }
+    @keyframes dash-flow {
+      0%   { transform: scaleY(0.6) translateY(-4px); opacity: 0.2;  }
+      50%  { transform: scaleY(1)   translateY(0);    opacity: 1;    }
+      100% { transform: scaleY(0.6) translateY(4px);  opacity: 0.2;  }
+    }
+    /* thunder-spark arrow pill */
+    .scroll-spark-pill {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, rgba(0,245,212,0.12), rgba(155,93,229,0.12));
+      border: 1px solid rgba(0,245,212,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 18px rgba(0,245,212,0.25), inset 0 0 12px rgba(0,245,212,0.05);
+      overflow: visible;
+    }
+    /* outer ring pulse */
+    .scroll-spark-pill::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,245,212,0.2);
+      animation: ring-pulse 2.2s ease-in-out infinite;
+    }
+    .scroll-spark-pill::after {
+      content: '';
+      position: absolute;
+      inset: -11px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,245,212,0.1);
+      animation: ring-pulse 2.2s ease-in-out infinite 0.4s;
+    }
+    @keyframes ring-pulse {
+      0%, 100% { transform: scale(1);    opacity: 1;   }
+      50%       { transform: scale(1.12); opacity: 0.3; }
+    }
+    /* spark flickers around the pill */
+    .spark-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: spark-orbit 2.2s linear infinite;
+      box-shadow: 0 0 6px var(--cyan);
+    }
+    .spark-dot:nth-child(2) { animation-delay: -0.7s;  background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .spark-dot:nth-child(3) { animation-delay: -1.4s;  background: var(--lime);   box-shadow: 0 0 6px var(--lime);   }
+    @keyframes spark-orbit {
+      0%   { transform: rotate(0deg)   translateX(26px) scale(1);    opacity: 1;   }
+      50%  { transform: rotate(180deg) translateX(26px) scale(0.6);  opacity: 0.5; }
+      100% { transform: rotate(360deg) translateX(26px) scale(1);    opacity: 1;   }
+    }
+    /* the bolt itself */
+    .bolt-svg { filter: drop-shadow(0 0 4px var(--cyan)); }
+    /* chevron pair below the pill */
+    .scroll-chevrons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      margin-top: 6px;
+    }
+    .chev {
+      width: 16px;
+      height: 8px;
+      opacity: 0;
+      animation: chev-fall 1.6s ease-in-out infinite;
+    }
+    .chev:nth-child(1) { animation-delay: 0s;    }
+    .chev:nth-child(2) { animation-delay: 0.22s; }
+    .chev:nth-child(3) { animation-delay: 0.44s; }
+    @keyframes chev-fall {
+      0%        { opacity: 0;   transform: translateY(-4px); }
+      40%, 60%  { opacity: 0.9; transform: translateY(0);   }
+      100%      { opacity: 0;   transform: translateY(4px);  }
+    }
+
+    /* ── URGENCY BAR ── */
+    .urgency-bar {
+      background: linear-gradient(90deg, rgba(247,37,133,0.15), rgba(155,93,229,0.15));
+      border: 1px solid rgba(247,37,133,0.3);
+      border-radius: 12px;
+      padding: 12px 20px;
+    }
+
+    /* ── FREE OFFER CARD ── */
+    .offer-check-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .offer-check-item:last-child { border-bottom: none; }
+
+    @media (max-width: 640px) {
+      .hero-headline { font-size: 2.2rem; }
+      .price-new { font-size: 2.2rem; }
+      .pricing-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════════ -->
+  <nav>
+    <span class="logo">VibeCity ⚡</span>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="pulse-dot"></span>
+      <span style="font-size:0.78rem;color:#94a3b8;">Free spots open</span>
+    </div>
+    <a href="#free-offer" class="btn-primary" style="padding:10px 22px;font-size:0.85rem;">Join Free →</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       TICKER
+  ═══════════════════════════════════════════ -->
+  <div class="ticker-wrap" style="margin-top:65px;">
+    <div class="ticker-track">
+      <span class="ticker-item"><span>🚀</span> Vibe Coding</span>
+      <span class="ticker-item"><span>✦</span> Build With AI</span>
+      <span class="ticker-item"><span>⚡</span> No Experience Needed</span>
+      <span class="ticker-item"><span>🌐</span> Real Projects</span>
+      <span class="ticker-item"><span>💰</span> Start Earning</span>
+      <span class="ticker-item"><span>🔥</span> Free Training</span>
+      <span class="ticker-item"><span>✦</span> Join VibeCity</span>
+      <!-- duplicate for infinite loop -->
+      <span class="ticker-item"><span>🚀</span> Vibe Coding</span>
+      <span class="ticker-item"><span>✦</span> Build With AI</span>
+      <span class="ticker-item"><span>⚡</span> No Experience Needed</span>
+      <span class="ticker-item"><span>🌐</span> Real Projects</span>
+      <span class="ticker-item"><span>💰</span> Start Earning</span>
+      <span class="ticker-item"><span>🔥</span> Free Training</span>
+      <span class="ticker-item"><span>✦</span> Join VibeCity</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       1. HERO SECTION
+  ═══════════════════════════════════════════ -->
+  <section style="position:relative;min-height:92vh;display:flex;align-items:center;padding:80px 24px 100px;overflow:hidden;" class="grid-pattern">
+
+    <!-- orbs -->
+    <div class="orb orb-cyan"   style="width:500px;height:500px;top:-100px;right:-120px;"></div>
+    <div class="orb orb-purple" style="width:400px;height:400px;bottom:-80px;left:-100px;"></div>
+
+    <div style="max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1;">
+
+      <!-- label -->
+      <div class="fade-in" style="margin-bottom:24px;">
+        <span class="section-label">⚡ The Future of Tech Education is Here</span>
+      </div>
+
+      <!-- headline -->
+      <h1 class="hero-headline fade-in" style="transition-delay:0.1s;margin-bottom:24px;">
+        Learn to Code<br>
+        <span class="grad-text">Without Learning</span><br>
+        to Code.
+      </h1>
+
+      <!-- subheadline -->
+      <p class="fade-in" style="transition-delay:0.2s;font-size:clamp(1rem,2.5vw,1.25rem);color:#94a3b8;max-width:600px;margin:0 auto 40px;line-height:1.7;">
+        Join VibeCity and start building real apps, websites, and tools using AI-powered vibe coding—even if you've never written a line of code.
+      </p>
+
+      <!-- CTAs -->
+      <div class="fade-in" style="transition-delay:0.3s;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:16px;">
+        <a href="#free-offer" class="btn-primary">
+          🚀 Join Free VibeCity
+        </a>
+        <a href="#features" class="btn-secondary">
+          👀 See What You'll Build
+        </a>
+      </div>
+
+      <!-- micro copy -->
+      <p class="fade-in" style="transition-delay:0.4s;font-size:0.82rem;color:#64748b;letter-spacing:0.03em;">
+        <span class="pulse-dot" style="width:6px;height:6px;"></span>
+        &nbsp;Get instant access to your free training
+      </p>
+
+      <!-- social proof -->
+      <div class="fade-in" style="transition-delay:0.5s;margin-top:52px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:24px;">
+        <div style="display:flex;align-items:center;gap:-8px;">
+          <div style="display:flex;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#9b5de5,#f72585);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">AJ</div>
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00f5d4,#9b5de5);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">TK</div>
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#b5f021,#00f5d4);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">FA</div>
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f72585,#b5f021);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">+</div>
+          </div>
+        </div>
+        <div style="text-align:left;">
+          <div class="stars">★★★★★</div>
+          <div style="font-size:0.8rem;color:#94a3b8;margin-top:2px;">Loved by <strong style="color:#e2e8f0;">500+ builders</strong> across Nigeria</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- scroll arrow — custom thunder spark -->
+    <a href="#features" style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);text-decoration:none;">
+      <div class="scroll-arrow-wrap">
+
+        <!-- flowing dashes -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;margin-bottom:4px;">
+          <div class="scroll-dash"></div>
+          <div class="scroll-dash"></div>
+          <div class="scroll-dash"></div>
+        </div>
+
+        <!-- thunder pill with orbiting sparks -->
+        <div class="scroll-spark-pill">
+          <div class="spark-dot"></div>
+          <div class="spark-dot"></div>
+          <div class="spark-dot"></div>
+          <!-- lightning bolt SVG -->
+          <svg class="bolt-svg" width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.5 1L2 13H10L8.5 21L18 9H10.5L11.5 1Z"
+              fill="url(#bolt-grad)"
+              stroke="url(#bolt-grad-stroke)"
+              stroke-width="1.2"
+              stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="bolt-grad" x1="2" y1="1" x2="18" y2="21" gradientUnits="userSpaceOnUse">
+                <stop offset="0%"   stop-color="#00f5d4"/>
+                <stop offset="60%"  stop-color="#9b5de5"/>
+                <stop offset="100%" stop-color="#f72585"/>
+              </linearGradient>
+              <linearGradient id="bolt-grad-stroke" x1="2" y1="1" x2="18" y2="21" gradientUnits="userSpaceOnUse">
+                <stop offset="0%"   stop-color="#00f5d4"/>
+                <stop offset="100%" stop-color="#9b5de5"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- cascading chevrons -->
+        <div class="scroll-chevrons">
+          <svg class="chev" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L8 7L15 1" stroke="url(#chev-g1)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs><linearGradient id="chev-g1" x1="1" y1="4" x2="15" y2="4" gradientUnits="userSpaceOnUse"><stop stop-color="#00f5d4"/><stop offset="1" stop-color="#9b5de5"/></linearGradient></defs>
+          </svg>
+          <svg class="chev" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L8 7L15 1" stroke="url(#chev-g2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs><linearGradient id="chev-g2" x1="1" y1="4" x2="15" y2="4" gradientUnits="userSpaceOnUse"><stop stop-color="#9b5de5"/><stop offset="1" stop-color="#f72585"/></linearGradient></defs>
+          </svg>
+          <svg class="chev" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L8 7L15 1" stroke="url(#chev-g3)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs><linearGradient id="chev-g3" x1="1" y1="4" x2="15" y2="4" gradientUnits="userSpaceOnUse"><stop stop-color="#f72585"/><stop offset="1" stop-color="#b5f021"/></linearGradient></defs>
+          </svg>
+        </div>
+
+      </div>
+    </a>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       1.5  VIBE CODING TOOLS SECTION
+  ═══════════════════════════════════════════ -->
+  <section id="tools-section" style="padding:100px 0 90px;position:relative;overflow:hidden;background:var(--bg);">
+
+    <!-- animated mesh background -->
+    <div id="tools-mesh" style="position:absolute;inset:0;pointer-events:none;z-index:0;">
+      <div style="position:absolute;inset:0;background:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(155,93,229,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 40%, rgba(0,245,212,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(247,37,133,0.06) 0%, transparent 50%);"></div>
+      <!-- scanline grid -->
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,245,212,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,212,0.03) 1px,transparent 1px);background-size:80px 80px;"></div>
+    </div>
+
+    <!-- cursor spotlight -->
+    <div id="tools-spotlight" style="position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,245,212,0.07) 0%,transparent 70%);pointer-events:none;z-index:1;transform:translate(-50%,-50%);top:50%;left:50%;transition:none;"></div>
+
+    <!-- floating particles -->
+    <div id="tools-particles" style="position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;"></div>
+
+    <!-- ── HEADLINE ── -->
+    <div style="position:relative;z-index:2;text-align:center;padding:0 24px;margin-bottom:70px;">
+      <div class="section-label" id="tools-label" style="margin-bottom:20px;opacity:0;">
+        ⚡ The Stack
+      </div>
+      <div id="tools-headline-wrap" style="overflow:visible;">
+        <h2 id="tools-headline" style="font-size:clamp(2rem,5.5vw,3.8rem);font-weight:900;letter-spacing:-0.04em;line-height:1.05;margin-bottom:14px;opacity:0;">
+          Vibe Coding Platforms<br>
+          You Will <span class="grad-text" id="tools-master-word">Master</span>
+        </h2>
+      </div>
+      <p id="tools-sub" style="font-size:1.05rem;color:#94a3b8;opacity:0;transform:translateY(16px);">
+        in the <strong style="color:#e2e8f0;">VibeCity</strong> community — used by the world's best builders
+      </p>
+
+      <!-- count badges -->
+      <div id="tools-badges" style="display:flex;justify-content:center;gap:24px;margin-top:28px;opacity:0;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(0,245,212,0.07);border:1px solid rgba(0,245,212,0.18);border-radius:50px;padding:6px 16px;">
+          <span class="pulse-dot"></span>
+          <span style="font-size:0.8rem;font-weight:600;color:var(--cyan);">14 Platforms</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(155,93,229,0.07);border:1px solid rgba(155,93,229,0.18);border-radius:50px;padding:6px 16px;">
+          <span style="font-size:0.8rem;font-weight:600;color:var(--purple);">🛠️ AI-Powered</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(181,240,33,0.07);border:1px solid rgba(181,240,33,0.18);border-radius:50px;padding:6px 16px;">
+          <span style="font-size:0.8rem;font-weight:600;color:var(--lime);">🚀 Beginner Ready</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MARQUEE ROW 1 → ← ── -->
+    <div class="tools-marquee-container" style="position:relative;z-index:2;margin-bottom:20px;mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%);">
+      <div id="marquee-row-1" class="marquee-row" style="display:flex;gap:18px;width:max-content;will-change:transform;">
+        <!-- Row 1 tools × 2 for infinite loop -->
+        <!-- Cursor -->
+        <div class="tool-card" data-color="#00f5d4" data-glow="rgba(0,245,212,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#00f5d4,#00c4a8);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=cursor.sh&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#1a1a1a,#333);">Cs</span></div>
+          <div class="tool-name">Cursor</div>
+          <div class="tool-tag">AI Code Editor</div>
+          <div class="tool-hot">🔥 HOT</div>
+        </div>
+        <!-- Bolt.new -->
+        <div class="tool-card" data-color="#9b5de5" data-glow="rgba(155,93,229,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#9b5de5,#6b2fa0);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=bolt.new&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#1374EF,#0a4eb0);">⚡</span></div>
+          <div class="tool-name">Bolt.new</div>
+          <div class="tool-tag">Instant Apps</div>
+          <div class="tool-hot" style="color:var(--purple);border-color:rgba(155,93,229,0.3);background:rgba(155,93,229,0.1);">⚡ VIRAL</div>
+        </div>
+        <!-- Lovable -->
+        <div class="tool-card" data-color="#f72585" data-glow="rgba(247,37,133,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#f72585,#b01060);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=lovable.dev&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#ff6b6b,#b01060);">♥</span></div>
+          <div class="tool-name">Lovable</div>
+          <div class="tool-tag">Build with AI</div>
+          <div class="tool-hot" style="color:var(--pink);border-color:rgba(247,37,133,0.3);background:rgba(247,37,133,0.1);">💎 TOP</div>
+        </div>
+        <!-- V0 -->
+        <div class="tool-card" data-color="#b5f021" data-glow="rgba(181,240,33,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#b5f021,#8ab800);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=v0.dev&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#000,#222);">V0</span></div>
+          <div class="tool-name">V0.dev</div>
+          <div class="tool-tag">UI Generator</div>
+          <div class="tool-hot" style="color:var(--lime);border-color:rgba(181,240,33,0.3);background:rgba(181,240,33,0.1);">🌟 NEW</div>
+        </div>
+        <!-- Replit -->
+        <div class="tool-card" data-color="#f26207" data-glow="rgba(242,98,7,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#f26207,#b84a00);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=replit.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#f26207,#b84a00);">Re</span></div>
+          <div class="tool-name">Replit</div>
+          <div class="tool-tag">Cloud IDE</div>
+          <div class="tool-hot" style="color:#f26207;border-color:rgba(242,98,7,0.3);background:rgba(242,98,7,0.1);">🔧 PRO</div>
+        </div>
+        <!-- Claude -->
+        <div class="tool-card" data-color="#cc785c" data-glow="rgba(204,120,92,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#cc785c,#a05030);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=claude.ai&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#cc785c,#a05030);">Cl</span></div>
+          <div class="tool-name">Claude</div>
+          <div class="tool-tag">AI Partner</div>
+          <div class="tool-hot" style="color:#cc785c;border-color:rgba(204,120,92,0.3);background:rgba(204,120,92,0.1);">🤖 AI</div>
+        </div>
+        <!-- ChatGPT -->
+        <div class="tool-card" data-color="#10a37f" data-glow="rgba(16,163,127,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#10a37f,#0a7a5e);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#10a37f,#0a7a5e);">GP</span></div>
+          <div class="tool-name">ChatGPT</div>
+          <div class="tool-tag">AI Brain</div>
+          <div class="tool-hot" style="color:#10a37f;border-color:rgba(16,163,127,0.3);background:rgba(16,163,127,0.1);">🧠 SMART</div>
+        </div>
+        <!-- DUPLICATE for seamless loop -->
+        <div class="tool-card" data-color="#00f5d4" data-glow="rgba(0,245,212,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#00f5d4,#00c4a8);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=cursor.sh&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#1a1a1a,#333);">Cs</span></div>
+          <div class="tool-name">Cursor</div>
+          <div class="tool-tag">AI Code Editor</div>
+          <div class="tool-hot">🔥 HOT</div>
+        </div>
+        <div class="tool-card" data-color="#9b5de5" data-glow="rgba(155,93,229,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#9b5de5,#6b2fa0);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=bolt.new&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#1374EF,#0a4eb0);">⚡</span></div>
+          <div class="tool-name">Bolt.new</div>
+          <div class="tool-tag">Instant Apps</div>
+          <div class="tool-hot" style="color:var(--purple);border-color:rgba(155,93,229,0.3);background:rgba(155,93,229,0.1);">⚡ VIRAL</div>
+        </div>
+        <div class="tool-card" data-color="#f72585" data-glow="rgba(247,37,133,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#f72585,#b01060);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=lovable.dev&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#ff6b6b,#b01060);">♥</span></div>
+          <div class="tool-name">Lovable</div>
+          <div class="tool-tag">Build with AI</div>
+          <div class="tool-hot" style="color:var(--pink);border-color:rgba(247,37,133,0.3);background:rgba(247,37,133,0.1);">💎 TOP</div>
+        </div>
+        <div class="tool-card" data-color="#b5f021" data-glow="rgba(181,240,33,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#b5f021,#8ab800);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=v0.dev&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#000,#222);">V0</span></div>
+          <div class="tool-name">V0.dev</div>
+          <div class="tool-tag">UI Generator</div>
+          <div class="tool-hot" style="color:var(--lime);border-color:rgba(181,240,33,0.3);background:rgba(181,240,33,0.1);">🌟 NEW</div>
+        </div>
+        <div class="tool-card" data-color="#f26207" data-glow="rgba(242,98,7,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#f26207,#b84a00);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=replit.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#f26207,#b84a00);">Re</span></div>
+          <div class="tool-name">Replit</div>
+          <div class="tool-tag">Cloud IDE</div>
+          <div class="tool-hot" style="color:#f26207;border-color:rgba(242,98,7,0.3);background:rgba(242,98,7,0.1);">🔧 PRO</div>
+        </div>
+        <div class="tool-card" data-color="#cc785c" data-glow="rgba(204,120,92,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#cc785c,#a05030);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=claude.ai&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#cc785c,#a05030);">Cl</span></div>
+          <div class="tool-name">Claude</div>
+          <div class="tool-tag">AI Partner</div>
+          <div class="tool-hot" style="color:#cc785c;border-color:rgba(204,120,92,0.3);background:rgba(204,120,92,0.1);">🤖 AI</div>
+        </div>
+        <div class="tool-card" data-color="#10a37f" data-glow="rgba(16,163,127,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#10a37f,#0a7a5e);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#10a37f,#0a7a5e);">GP</span></div>
+          <div class="tool-name">ChatGPT</div>
+          <div class="tool-tag">AI Brain</div>
+          <div class="tool-hot" style="color:#10a37f;border-color:rgba(16,163,127,0.3);background:rgba(16,163,127,0.1);">🧠 SMART</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MARQUEE ROW 2 → → ── -->
+    <div class="tools-marquee-container" style="position:relative;z-index:2;margin-bottom:60px;mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%);">
+      <div id="marquee-row-2" class="marquee-row" style="display:flex;gap:18px;width:max-content;will-change:transform;">
+        <!-- Windsurf -->
+        <div class="tool-card" data-color="#4a9dff" data-glow="rgba(74,157,255,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#4a9dff,#2060c0);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=windsurf.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#4a9dff,#2060c0);">Ws</span></div>
+          <div class="tool-name">Windsurf</div>
+          <div class="tool-tag">Agentic IDE</div>
+          <div class="tool-hot" style="color:#4a9dff;border-color:rgba(74,157,255,0.3);background:rgba(74,157,255,0.1);">🌊 WAVE</div>
+        </div>
+        <!-- GitHub Copilot -->
+        <div class="tool-card" data-color="#e2e8f0" data-glow="rgba(226,232,240,0.2)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#e2e8f0,#94a3b8);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#24292e,#111);">GH</span></div>
+          <div class="tool-name">Copilot</div>
+          <div class="tool-tag">Code Assist</div>
+          <div class="tool-hot" style="color:#e2e8f0;border-color:rgba(226,232,240,0.3);background:rgba(226,232,240,0.05);">✨ PRO</div>
+        </div>
+        <!-- Framer -->
+        <div class="tool-card" data-color="#0055ff" data-glow="rgba(0,85,255,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#0055ff,#0033bb);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=framer.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#0055ff,#0033bb);">Fr</span></div>
+          <div class="tool-name">Framer</div>
+          <div class="tool-tag">Web Design</div>
+          <div class="tool-hot" style="color:#4a9dff;border-color:rgba(0,85,255,0.3);background:rgba(0,85,255,0.1);">🎨 DESIGN</div>
+        </div>
+        <!-- Supabase -->
+        <div class="tool-card" data-color="#3ecf8e" data-glow="rgba(62,207,142,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#3ecf8e,#1a9060);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=supabase.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#3ecf8e,#1a9060);">Sb</span></div>
+          <div class="tool-name">Supabase</div>
+          <div class="tool-tag">Backend Fast</div>
+          <div class="tool-hot" style="color:#3ecf8e;border-color:rgba(62,207,142,0.3);background:rgba(62,207,142,0.1);">🗄️ DB</div>
+        </div>
+        <!-- Vercel -->
+        <div class="tool-card" data-color="#e2e8f0" data-glow="rgba(226,232,240,0.2)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#e2e8f0,#94a3b8);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=vercel.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#000,#222);">▲</span></div>
+          <div class="tool-name">Vercel</div>
+          <div class="tool-tag">Deploy Fast</div>
+          <div class="tool-hot" style="color:#e2e8f0;border-color:rgba(226,232,240,0.3);background:rgba(226,232,240,0.05);">▲ SHIP</div>
+        </div>
+        <!-- Perplexity -->
+        <div class="tool-card" data-color="#20b2aa" data-glow="rgba(32,178,170,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#20b2aa,#108880);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#20b2aa,#108880);">Px</span></div>
+          <div class="tool-name">Perplexity</div>
+          <div class="tool-tag">AI Research</div>
+          <div class="tool-hot" style="color:#20b2aa;border-color:rgba(32,178,170,0.3);background:rgba(32,178,170,0.1);">🔍 SEARCH</div>
+        </div>
+        <!-- Figma -->
+        <div class="tool-card" data-color="#a259ff" data-glow="rgba(162,89,255,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#a259ff,#6b2fa0);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=figma.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#a259ff,#6b2fa0);">Fig</span></div>
+          <div class="tool-name">Figma</div>
+          <div class="tool-tag">UI Prototyping</div>
+          <div class="tool-hot" style="color:#a259ff;border-color:rgba(162,89,255,0.3);background:rgba(162,89,255,0.1);">🖌️ DESIGN</div>
+        </div>
+        <!-- DUPLICATE row 2 -->
+        <div class="tool-card" data-color="#4a9dff" data-glow="rgba(74,157,255,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#4a9dff,#2060c0);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=windsurf.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#4a9dff,#2060c0);">Ws</span></div>
+          <div class="tool-name">Windsurf</div>
+          <div class="tool-tag">Agentic IDE</div>
+          <div class="tool-hot" style="color:#4a9dff;border-color:rgba(74,157,255,0.3);background:rgba(74,157,255,0.1);">🌊 WAVE</div>
+        </div>
+        <div class="tool-card" data-color="#e2e8f0" data-glow="rgba(226,232,240,0.2)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#e2e8f0,#94a3b8);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#24292e,#111);">GH</span></div>
+          <div class="tool-name">Copilot</div>
+          <div class="tool-tag">Code Assist</div>
+          <div class="tool-hot" style="color:#e2e8f0;border-color:rgba(226,232,240,0.3);background:rgba(226,232,240,0.05);">✨ PRO</div>
+        </div>
+        <div class="tool-card" data-color="#0055ff" data-glow="rgba(0,85,255,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#0055ff,#0033bb);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=framer.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#0055ff,#0033bb);">Fr</span></div>
+          <div class="tool-name">Framer</div>
+          <div class="tool-tag">Web Design</div>
+          <div class="tool-hot" style="color:#4a9dff;border-color:rgba(0,85,255,0.3);background:rgba(0,85,255,0.1);">🎨 DESIGN</div>
+        </div>
+        <div class="tool-card" data-color="#3ecf8e" data-glow="rgba(62,207,142,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#3ecf8e,#1a9060);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=supabase.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#3ecf8e,#1a9060);">Sb</span></div>
+          <div class="tool-name">Supabase</div>
+          <div class="tool-tag">Backend Fast</div>
+          <div class="tool-hot" style="color:#3ecf8e;border-color:rgba(62,207,142,0.3);background:rgba(62,207,142,0.1);">🗄️ DB</div>
+        </div>
+        <div class="tool-card" data-color="#e2e8f0" data-glow="rgba(226,232,240,0.2)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#e2e8f0,#94a3b8);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=vercel.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#000,#222);">▲</span></div>
+          <div class="tool-name">Vercel</div>
+          <div class="tool-tag">Deploy Fast</div>
+          <div class="tool-hot" style="color:#e2e8f0;border-color:rgba(226,232,240,0.3);background:rgba(226,232,240,0.05);">▲ SHIP</div>
+        </div>
+        <div class="tool-card" data-color="#20b2aa" data-glow="rgba(32,178,170,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#20b2aa,#108880);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#20b2aa,#108880);">Px</span></div>
+          <div class="tool-name">Perplexity</div>
+          <div class="tool-tag">AI Research</div>
+          <div class="tool-hot" style="color:#20b2aa;border-color:rgba(32,178,170,0.3);background:rgba(32,178,170,0.1);">🔍 SEARCH</div>
+        </div>
+        <div class="tool-card" data-color="#a259ff" data-glow="rgba(162,89,255,0.3)">
+          <div class="tool-card-bar" style="background:linear-gradient(90deg,#a259ff,#6b2fa0);"></div>
+          <div class="tool-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=figma.com&sz=64" class="tool-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt=""><span class="tool-logo-fallback" style="display:none;background:linear-gradient(135deg,#a259ff,#6b2fa0);">Fig</span></div>
+          <div class="tool-name">Figma</div>
+          <div class="tool-tag">UI Prototyping</div>
+          <div class="tool-hot" style="color:#a259ff;border-color:rgba(162,89,255,0.3);background:rgba(162,89,255,0.1);">🖌️ DESIGN</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BOTTOM CTA STRIP ── -->
+    <div style="position:relative;z-index:2;text-align:center;padding:0 24px;">
+      <p id="tools-cta-text" style="font-size:0.9rem;color:#64748b;opacity:0;">
+        All platforms taught step-by-step inside VibeCity &nbsp;·&nbsp;
+        <a href="#free-offer" style="color:var(--cyan);font-weight:600;text-decoration:none;">Get free access →</a>
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ── TOOL CARD STYLES ── -->
+  <style>
+    .tool-card {
+      flex-shrink: 0;
+      width: 160px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 22px 18px 18px;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      user-select: none;
+      transform-style: preserve-3d;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      opacity: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 70%);
+      transition: opacity 0.3s;
+    }
+    .tool-card:hover::before { opacity: 1; }
+    .tool-card-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 20px 20px 0 0;
+      opacity: 0.9;
+    }
+    .tool-logo-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .tool-logo-img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .tool-logo-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #fff;
+      border-radius: 14px;
+    }
+    .tool-name {
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      text-align: center;
+      margin-bottom: 4px;
+      white-space: nowrap;
+    }
+    .tool-tag {
+      font-size: 0.72rem;
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 14px;
+      white-space: nowrap;
+    }
+    .tool-hot {
+      display: block;
+      text-align: center;
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      border: 1px solid rgba(0,245,212,0.25);
+      background: rgba(0,245,212,0.08);
+      border-radius: 50px;
+      padding: 3px 8px;
+    }
+  </style>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══════════════════════════════════════════
+       2. FEATURES SECTION
+  ═══════════════════════════════════════════ -->
+  <section id="features" style="padding:100px 24px;position:relative;overflow:hidden;">
+
+    <div class="orb orb-cyan" style="width:300px;height:300px;top:50%;right:-100px;transform:translateY(-50%);"></div>
+
+    <div style="max-width:1080px;margin:0 auto;">
+
+      <div style="text-align:center;margin-bottom:64px;">
+        <div class="section-label fade-in" style="margin-bottom:16px;">🛠️ What You'll Build</div>
+        <h2 class="fade-in" style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;">
+          Real Projects. Real Skills.<br><span class="grad-text">Real Results.</span>
+        </h2>
+        <p class="fade-in" style="color:#94a3b8;font-size:1.05rem;max-width:480px;margin:0 auto;">
+          You won't just watch—you'll build real projects that prove your skills from day one.
+        </p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;">
+
+        <!-- Card 1 -->
+        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;">
+          <div class="icon-ring" style="background:rgba(0,245,212,0.1);border:1px solid rgba(0,245,212,0.2);">🌐</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">Landing Pages</h3>
+            <p style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">High-converting, beautiful pages that look like they cost millions—built in hours.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;transition-delay:0.1s;">
+          <div class="icon-ring" style="background:rgba(155,93,229,0.1);border:1px solid rgba(155,93,229,0.2);">🎯</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">Portfolio Websites</h3>
+            <p style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Showcase your work with a slick portfolio that opens doors and lands opportunities.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;transition-delay:0.2s;">
+          <div class="icon-ring" style="background:rgba(247,37,133,0.1);border:1px solid rgba(247,37,133,0.2);">🤖</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">AI Tools</h3>
+            <p style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Build and deploy AI-powered products that people actually use and pay for.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;transition-delay:0.3s;">
+          <div class="icon-ring" style="background:rgba(181,240,33,0.1);border:1px solid rgba(181,240,33,0.2);">💎</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">SaaS Apps</h3>
+            <p style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Launch software products with recurring revenue—from idea to live app.</p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;transition-delay:0.4s;">
+          <div class="icon-ring" style="background:rgba(0,245,212,0.1);border:1px solid rgba(0,245,212,0.2);">⚙️</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">Automation Workflows</h3>
+            <p style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Build systems that work while you sleep—automate repetitive tasks at scale.</p>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;transition-delay:0.5s;">
+          <div class="icon-ring" style="background:rgba(155,93,229,0.1);border:1px solid rgba(155,93,229,0.2);">🚀</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">Web Apps</h3>
+            <p style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Full-featured web applications that solve real problems for real users.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══════════════════════════════════════════
+       3. FREE OFFER SECTION
+  ═══════════════════════════════════════════ -->
+  <section id="free-offer" style="padding:100px 24px;position:relative;overflow:hidden;">
+
+    <div class="orb orb-purple" style="width:400px;height:400px;top:-80px;left:50%;transform:translateX(-50%);"></div>
+
+    <div style="max-width:900px;margin:0 auto;">
+
+      <div style="text-align:center;margin-bottom:60px;">
+        <div class="section-label fade-in" style="margin-bottom:16px;border-color:rgba(181,240,33,0.3);color:var(--lime);background:rgba(181,240,33,0.07);">
+          🎁 Free Access
+        </div>
+        <h2 class="fade-in" style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;">
+          Start Free. Build Your First<br>
+          <span class="grad-text-lime">Project This Week.</span>
+        </h2>
+        <p class="fade-in" style="color:#94a3b8;font-size:1.05rem;">No credit card. No experience. No excuses.</p>
+      </div>
+
+      <!-- OFFER CARD -->
+      <div class="fade-in" style="background:rgba(255,255,255,0.03);border:1px solid rgba(0,245,212,0.2);border-radius:28px;overflow:hidden;box-shadow:0 0 80px rgba(0,245,212,0.08);">
+
+        <!-- top bar -->
+        <div style="background:linear-gradient(90deg,rgba(0,245,212,0.12),rgba(155,93,229,0.12));padding:16px 32px;border-bottom:1px solid rgba(0,245,212,0.12);text-align:center;">
+          <span style="font-family:'Exo 2',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--cyan);">
+            ✦ Everything below is 100% Free ✦
+          </span>
+        </div>
+
+        <div style="padding:40px 32px;display:grid;grid-template-columns:1fr 1fr;gap:0;" class="offer-grid">
+
+          <!-- left -->
+          <div style="padding-right:32px;border-right:1px solid var(--border);">
+            <div class="offer-check-item">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,245,212,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">🎓</div>
+              <div>
+                <div style="font-weight:600;margin-bottom:2px;">Free Training Access</div>
+                <div style="font-size:0.82rem;color:#94a3b8;">Full walkthrough of vibe coding from scratch</div>
+              </div>
+            </div>
+            <div class="offer-check-item">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(155,93,229,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">📖</div>
+              <div>
+                <div style="font-weight:600;margin-bottom:2px;">Beginner-Friendly Walkthrough</div>
+                <div style="font-size:0.82rem;color:#94a3b8;">Step-by-step. Zero jargon. Zero confusion.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- right -->
+          <div style="padding-left:32px;">
+            <div class="offer-check-item">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(247,37,133,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">🏙️</div>
+              <div>
+                <div style="font-weight:600;margin-bottom:2px;">Community Access (VibeCity)</div>
+                <div style="font-size:0.82rem;color:#94a3b8;">Join a tribe of builders who get it</div>
+              </div>
+            </div>
+            <div class="offer-check-item">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(181,240,33,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">🤝</div>
+              <div>
+                <div style="font-weight:600;margin-bottom:2px;">Networking With Builders</div>
+                <div style="font-size:0.82rem;color:#94a3b8;">Connect, collaborate, and grow together</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CTA -->
+        <div style="padding:0 32px 40px;text-align:center;">
+          <a href="#" class="btn-lime">
+            🚀 Join Free Community
+          </a>
+          <p style="margin-top:12px;font-size:0.8rem;color:#64748b;">
+            ✓ Instant access &nbsp;·&nbsp; ✓ No card required &nbsp;·&nbsp; ✓ Cancel anytime
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      @media(max-width:640px){
+        .offer-grid { grid-template-columns:1fr !important; }
+        .offer-grid > div:first-child { padding-right:0 !important; border-right:none !important; border-bottom:1px solid var(--border); padding-bottom:0; }
+        .offer-grid > div:last-child  { padding-left:0 !important; padding-top:0; }
+      }
+    </style>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══════════════════════════════════════════
+       4. PRICING SECTION
+  ═══════════════════════════════════════════ -->
+  <section id="pricing" style="padding:100px 24px;position:relative;overflow:hidden;">
+
+    <div class="orb orb-pink"   style="width:350px;height:350px;bottom:-50px;right:-80px;"></div>
+    <div class="orb orb-purple" style="width:280px;height:280px;top:0;left:-80px;"></div>
+
+    <div style="max-width:860px;margin:0 auto;">
+
+      <div style="text-align:center;margin-bottom:20px;">
+        <div class="section-label fade-in" style="margin-bottom:16px;">💎 Upgrade Plans</div>
+        <h2 class="fade-in" style="font-size:clamp(2rem,5vw,3rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;">
+          Level Up After Your<br>
+          <span class="grad-text">Free Training</span>
+        </h2>
+      </div>
+
+      <!-- urgency banner -->
+      <div class="urgency-bar fade-in" style="text-align:center;margin-bottom:48px;">
+        <span style="font-family:'Exo 2',sans-serif;font-size:0.85rem;font-weight:700;color:#f72585;">
+          🔥 Limited discount for early members — prices go up soon
+        </span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:start;">
+
+        <!-- BASIC PLAN -->
+        <div class="pricing-card fade-in">
+          <div style="font-family:'Exo 2',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#94a3b8;margin-bottom:8px;">Starter</div>
+          <h3 style="font-size:1.6rem;font-weight:800;margin-bottom:20px;">Basic Plan</h3>
+
+          <div style="margin-bottom:28px;">
+            <span class="price-old">₦100,000</span>
+            <div>
+              <span class="price-new grad-text">₦80,000</span>
+            </div>
+            <div style="margin-top:6px;display:inline-block;background:rgba(0,245,212,0.1);border:1px solid rgba(0,245,212,0.2);border-radius:50px;padding:3px 12px;font-size:0.75rem;color:var(--cyan);font-weight:600;">Save ₦20,000</div>
+          </div>
+
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:32px;">
+            <li style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+              <div class="feature-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              1 Class (full access)
+            </li>
+            <li style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+              <div class="feature-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Community Access
+            </li>
+            <li style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+              <div class="feature-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Starter Resources
+            </li>
+            <li style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+              <div class="feature-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Recording Access
+            </li>
+          </ul>
+
+          <a href="#" class="btn-secondary" style="width:100%;justify-content:center;">Get Basic Plan</a>
+          <p style="margin-top:12px;font-size:0.78rem;color:#475569;text-align:center;">Upgrade after your free training</p>
+        </div>
+
+        <!-- ADVANCED PLAN -->
+        <div class="pricing-card featured fade-in" style="transition-delay:0.15s;">
+          <div class="badge-popular">⚡ Most Popular</div>
+
+          <div style="font-family:'Exo 2',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Advanced</div>
+          <h3 style="font-size:1.6rem;font-weight:800;margin-bottom:20px;">Advanced Plan</h3>
+
+          <div style="margin-bottom:28px;">
+            <span class="price-old">₦200,000</span>
+            <div>
+              <span class="price-new" style="background:linear-gradient(135deg,var(--lime),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">₦180,000</span>
+            </div>
+            <div style="margin-top:6px;display:inline-block;background:rgba(181,240,33,0.1);border:1px solid rgba(181,240,33,0.25);border-radius:50px;padding:3px 12px;font-size:0.75rem;color:var(--lime);font-weight:600;">Save ₦20,000</div>
+          </div>
+
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:32px;">
+            <li style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+              <div class="feature-check" style="background:rgba(181,240,33,0.12);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#b5f021" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              2 Classes (full access)
+            </li>
+            <li style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+              <div class="feature-check" style="background:rgba(181,240,33,0.12);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#b5f021" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Private Community (Inner Circle)
+            </li>
+            <li style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+              <div class="feature-check" style="background:rgba(181,240,33,0.12);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#b5f021" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Project Feedback
+            </li>
+            <li style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+              <div class="feature-check" style="background:rgba(181,240,33,0.12);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#b5f021" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Premium Resources
+            </li>
+            <li style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+              <div class="feature-check" style="background:rgba(181,240,33,0.12);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#b5f021" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Priority Support
+            </li>
+          </ul>
+
+          <a href="#" class="btn-lime" style="width:100%;justify-content:center;">Get Advanced Plan →</a>
+          <p style="margin-top:12px;font-size:0.78rem;color:#94a3b8;text-align:center;">Upgrade after your free training</p>
+        </div>
+
+      </div>
+
+      <!-- bottom urgency -->
+      <p class="fade-in" style="text-align:center;margin-top:28px;font-size:0.85rem;color:#64748b;">
+        🔒 Start with the free community first. No pressure. No tricks.
+      </p>
+
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══════════════════════════════════════════
+       5. OUTCOME SECTION
+  ═══════════════════════════════════════════ -->
+  <section style="padding:100px 24px;position:relative;overflow:hidden;">
+
+    <div class="orb orb-cyan" style="width:350px;height:350px;top:50%;left:-100px;transform:translateY(-50%);"></div>
+
+    <div style="max-width:900px;margin:0 auto;">
+
+      <div style="text-align:center;margin-bottom:60px;">
+        <div class="section-label fade-in" style="margin-bottom:16px;">🏆 Your Transformation</div>
+        <h2 class="fade-in" style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-0.03em;">
+          What You'll <span class="grad-text">Achieve</span>
+        </h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;">
+
+        <div class="outcome-item fade-in">
+          <div style="font-size:2rem;line-height:1;">🏗️</div>
+          <div>
+            <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:5px;">Build Real-World Projects</div>
+            <div style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Go from idea to live product using AI tools—not just tutorials and theory.</div>
+          </div>
+        </div>
+
+        <div class="outcome-item fade-in" style="transition-delay:0.1s;">
+          <div style="font-size:2rem;line-height:1;">📁</div>
+          <div>
+            <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:5px;">Create a Portfolio</div>
+            <div style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Build a body of work that proves your skills to clients, employers, and partners.</div>
+          </div>
+        </div>
+
+        <div class="outcome-item fade-in" style="transition-delay:0.2s;">
+          <div style="font-size:2rem;line-height:1;">⚡</div>
+          <div>
+            <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:5px;">Learn Faster With AI Tools</div>
+            <div style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Skip the 3-year learning curve. AI supercharges your speed by 10x.</div>
+          </div>
+        </div>
+
+        <div class="outcome-item fade-in" style="transition-delay:0.3s;">
+          <div style="font-size:2rem;line-height:1;">💰</div>
+          <div>
+            <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:5px;">Start Earning With Your Skills</div>
+            <div style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Freelance, launch products, or land tech roles—your new skills pay real money.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══════════════════════════════════════════
+       6. FINAL CTA SECTION
+  ═══════════════════════════════════════════ -->
+  <section style="padding:120px 24px;position:relative;overflow:hidden;text-align:center;">
+
+    <div class="orb orb-purple" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.12;"></div>
+    <div class="orb orb-cyan"   style="width:300px;height:300px;top:20%;right:-80px;opacity:0.1;"></div>
+
+    <!-- big decorative text -->
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Exo 2',sans-serif;font-size:clamp(6rem,20vw,16rem);font-weight:900;color:rgba(255,255,255,0.02);letter-spacing:-0.05em;pointer-events:none;white-space:nowrap;">
+      VIBE
+    </div>
+
+    <div style="position:relative;z-index:1;max-width:720px;margin:0 auto;">
+
+      <div class="section-label fade-in" style="margin-bottom:24px;">🔥 Last Call</div>
+
+      <h2 class="fade-in" style="font-size:clamp(2.2rem,6vw,4rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:24px;line-height:1.08;">
+        Stop Watching Tutorials.<br>
+        <span class="grad-text">Start Building.</span>
+      </h2>
+
+      <p class="fade-in" style="font-size:1.05rem;color:#94a3b8;margin-bottom:16px;line-height:1.7;">
+        The builders who win aren't the smartest ones.<br>They're the ones who start first.
+      </p>
+
+      <!-- urgency badge -->
+      <div class="fade-in urgency-bar" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:40px;">
+        <span class="pulse-dot"></span>
+        <span style="font-size:0.85rem;font-weight:600;color:#f72585;">Free training access available for a limited time</span>
+      </div>
+
+      <div class="fade-in" style="display:flex;justify-content:center;">
+        <a href="#free-offer" class="btn-lime" style="font-size:1.15rem;padding:18px 48px;">
+          ⚡ Join VibeCity Free Now
+        </a>
+      </div>
+
+      <p class="fade-in" style="margin-top:16px;font-size:0.8rem;color:#475569;">
+        ✓ Instant access &nbsp;·&nbsp; ✓ Zero cost &nbsp;·&nbsp; ✓ No card required
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer style="padding:40px 24px;border-top:1px solid var(--border);text-align:center;">
+    <div class="logo" style="font-size:1.2rem;margin-bottom:8px;">VibeCity ⚡</div>
+    <p style="font-size:0.8rem;color:#475569;">© 2025 VibeCity. All rights reserved. · Built with vibe coding.</p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       GSAP + ScrollTrigger
+  ═══════════════════════════════════════════ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- ═══════════════════════════════════════════
+       SCROLL ANIMATION JS
+  ═══════════════════════════════════════════ -->
+  <script>
+    // ── 1. Intersection Observer for fade-in ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ── 2. Smooth scroll ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    // ─────────────────────────────────────────
+    // ── 3. TOOLS SECTION — GSAP ANIMATIONS ──
+    // ─────────────────────────────────────────
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ── 3a. Floating particles ──
+    const particlesContainer = document.getElementById('tools-particles');
+    for (let i = 0; i < 28; i++) {
+      const dot = document.createElement('div');
+      const size = Math.random() * 3 + 1.5;
+      const colors = ['#00f5d4','#9b5de5','#f72585','#b5f021','#4a9dff'];
+      const color  = colors[Math.floor(Math.random() * colors.length)];
+      dot.style.cssText = `
+        position:absolute;
+        width:${size}px; height:${size}px;
+        border-radius:50%;
+        background:${color};
+        box-shadow:0 0 ${size*3}px ${color};
+        left:${Math.random()*100}%;
+        top:${Math.random()*100}%;
+        opacity:0;
+      `;
+      particlesContainer.appendChild(dot);
+      gsap.to(dot, {
+        y: -(Math.random()*120 + 60),
+        x: (Math.random()-0.5)*80,
+        opacity: Math.random()*0.6 + 0.2,
+        duration: Math.random()*4 + 4,
+        repeat: -1,
+        yoyo: false,
+        delay: Math.random()*5,
+        ease: 'none',
+        onRepeat() { gsap.set(dot, { y:0, opacity:0, x:0 }); }
+      });
+    }
+
+    // ── 3b. Headline reveal on scroll ──
+    const toolsST = ScrollTrigger.create({
+      trigger: '#tools-section',
+      start: 'top 75%',
+      onEnter() {
+        // label pop
+        gsap.fromTo('#tools-label',
+          { opacity:0, y:20, scale:0.9 },
+          { opacity:1, y:0,  scale:1, duration:0.6, ease:'back.out(2)' }
+        );
+        // headline
+        gsap.fromTo('#tools-headline',
+          { opacity:0, y:40 },
+          { opacity:1, y:0, duration:0.7, delay:0.15, ease:'power3.out' }
+        );
+        // "Master" word colour-shift shimmer
+        gsap.fromTo('#tools-master-word',
+          { backgroundSize:'100% 100%' },
+          { backgroundSize:'200% 200%', duration:2, delay:0.5, ease:'sine.inOut', repeat:-1, yoyo:true }
+        );
+        // subtitle
+        gsap.to('#tools-sub', { opacity:1, y:0, duration:0.6, delay:0.35, ease:'power2.out' });
+        // badges stagger
+        gsap.fromTo('#tools-badges',
+          { opacity:0, y:16 },
+          { opacity:1, y:0, duration:0.5, delay:0.5, ease:'power2.out' }
+        );
+        // bottom CTA text
+        gsap.to('#tools-cta-text', { opacity:1, duration:0.6, delay:0.8 });
+      }
+    });
+
+    // ── 3c. Continuous marquee (GSAP ticker) ──
+    const row1 = document.getElementById('marquee-row-1');
+    const row2 = document.getElementById('marquee-row-2');
+
+    let r1X = 0, r2X = 0;
+    const SPEED_1 = -0.55; // left
+    const SPEED_2 =  0.55; // right
+    let r1Speed = SPEED_1, r2Speed = SPEED_2;
+
+    function getHalfWidth(row) {
+      return row.scrollWidth / 2;
+    }
+
+    gsap.ticker.add(() => {
+      const hw1 = getHalfWidth(row1);
+      const hw2 = getHalfWidth(row2);
+
+      r1X += r1Speed;
+      if (r1X <= -hw1) r1X = 0;
+      if (r1X > 0)     r1X = -hw1;
+      gsap.set(row1, { x: r1X });
+
+      r2X += r2Speed;
+      if (r2X >= 0)    r2X = -hw2;
+      if (r2X < -hw2)  r2X = 0;
+      gsap.set(row2, { x: r2X });
+    });
+
+    // ── 3d. Tool card — 3D tilt + glow hover + speed nudge ──
+    document.querySelectorAll('.tool-card').forEach(card => {
+      const color = card.dataset.color || '#00f5d4';
+      const glow  = card.dataset.glow  || 'rgba(0,245,212,0.3)';
+      const row   = card.closest('.marquee-row');
+      const isRow1 = row && row.id === 'marquee-row-1';
+
+      // quick-to setters for smooth following
+      const setRX = gsap.quickTo(card, 'rotateX', { duration:0.4, ease:'power2.out' });
+      const setRY = gsap.quickTo(card, 'rotateY', { duration:0.4, ease:'power2.out' });
+      const setSc = gsap.quickTo(card, 'scale',   { duration:0.35, ease:'back.out(2)' });
+
+      card.addEventListener('mouseenter', () => {
+        card.style.borderColor = color;
+        card.style.boxShadow   = `0 0 32px ${glow}, 0 8px 32px rgba(0,0,0,0.4)`;
+        card.style.zIndex      = '10';
+        setSc(1.1);
+        // slow the row while hovering
+        if (isRow1) r1Speed = SPEED_1 * 0.18;
+        else        r2Speed = SPEED_2 * 0.18;
+      });
+
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const cx   = rect.left + rect.width  / 2;
+        const cy   = rect.top  + rect.height / 2;
+        const dx   = (e.clientX - cx) / (rect.width  / 2);
+        const dy   = (e.clientY - cy) / (rect.height / 2);
+        setRY( dx * 14);
+        setRX(-dy * 10);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.borderColor = 'rgba(255,255,255,0.08)';
+        card.style.boxShadow   = 'none';
+        card.style.zIndex      = '';
+        setSc(1);
+        setRX(0);
+        setRY(0);
+        // restore speed
+        if (isRow1) r1Speed = SPEED_1;
+        else        r2Speed = SPEED_2;
+      });
+    });
+
+    // ── 3e. Cursor spotlight ──
+    const spotlight = document.getElementById('tools-spotlight');
+    const section   = document.getElementById('tools-section');
+    const setSpotX  = gsap.quickTo(spotlight, 'left', { duration:0.6, ease:'power2.out' });
+    const setSpotY  = gsap.quickTo(spotlight, 'top',  { duration:0.6, ease:'power2.out' });
+
+    section.addEventListener('mousemove', e => {
+      const rect = section.getBoundingClientRect();
+      setSpotX(e.clientX - rect.left);
+      setSpotY(e.clientY - rect.top);
+    });
+
+    // ── 3f. "Master" word: random glitch flicker ──
+    function glitchMaster() {
+      const el = document.getElementById('tools-master-word');
+      if (!el) return;
+      const tl = gsap.timeline();
+      tl.to(el, { skewX:8,  duration:0.06, ease:'none' })
+        .to(el, { skewX:-6, duration:0.06, ease:'none' })
+        .to(el, { skewX:0,  duration:0.06, ease:'none' })
+        .to(el, { opacity:0.7, duration:0.04 })
+        .to(el, { opacity:1,   duration:0.04 });
+      setTimeout(glitchMaster, Math.random()*3500 + 2000);
+    }
+    setTimeout(glitchMaster, 2500);
+
+  </script>
+
+</body>
+</html>
