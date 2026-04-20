@@ -582,7 +582,7 @@
   <!-- ═══════════════════════════════════════════
        1. HERO SECTION
   ═══════════════════════════════════════════ -->
-  <section style="position:relative;min-height:92vh;display:flex;align-items:center;padding:80px 24px 100px;overflow:hidden;" class="grid-pattern">
+  <section id="hero-section" style="position:relative;min-height:92vh;display:flex;align-items:center;padding:80px 24px 100px;overflow:hidden;" class="grid-pattern">
 
     <!-- orbs -->
     <div class="orb orb-cyan"   style="width:500px;height:500px;top:-100px;right:-120px;"></div>
@@ -591,46 +591,46 @@
     <div style="max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1;">
 
       <!-- label -->
-      <div class="fade-in" style="margin-bottom:24px;">
+      <div id="hero-label" style="margin-bottom:24px;opacity:0;transform:translateY(20px);">
         <span class="section-label">⚡ The Future of Tech Education is Here</span>
       </div>
 
       <!-- headline -->
-      <h1 class="hero-headline fade-in" style="transition-delay:0.1s;margin-bottom:24px;">
+      <h1 id="hero-headline" class="hero-headline" style="margin-bottom:24px;opacity:0;">
         Learn to Code<br>
-        <span class="grad-text">Without Learning</span><br>
+        <span class="grad-text" id="hero-grad-word">Without Learning</span><br>
         to Code.
       </h1>
 
       <!-- subheadline -->
-      <p class="fade-in" style="transition-delay:0.2s;font-size:clamp(1rem,2.5vw,1.25rem);color:#94a3b8;max-width:600px;margin:0 auto 40px;line-height:1.7;">
+      <p id="hero-sub" style="font-size:clamp(1rem,2.5vw,1.25rem);color:#94a3b8;max-width:600px;margin:0 auto 40px;line-height:1.7;opacity:0;transform:translateY(20px);">
         Join VibeCity and start building real apps, websites, and tools using AI-powered vibe coding—even if you've never written a line of code.
       </p>
 
       <!-- CTAs -->
-      <div class="fade-in" style="transition-delay:0.3s;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:16px;">
-        <a href="#free-offer" class="btn-primary">
+      <div id="hero-ctas" style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:16px;opacity:0;transform:translateY(20px);">
+        <a href="#free-offer" class="btn-primary magnetic-btn">
           🚀 Join Free VibeCity
         </a>
-        <a href="#features" class="btn-secondary">
+        <a href="#features" class="btn-secondary magnetic-btn">
           👀 See What You'll Build
         </a>
       </div>
 
       <!-- micro copy -->
-      <p class="fade-in" style="transition-delay:0.4s;font-size:0.82rem;color:#64748b;letter-spacing:0.03em;">
+      <p id="hero-micro" style="font-size:0.82rem;color:#64748b;letter-spacing:0.03em;opacity:0;">
         <span class="pulse-dot" style="width:6px;height:6px;"></span>
         &nbsp;Get instant access to your free training
       </p>
 
       <!-- social proof -->
-      <div class="fade-in" style="transition-delay:0.5s;margin-top:52px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:24px;">
+      <div id="hero-social" style="margin-top:52px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:24px;opacity:0;transform:translateY(24px);">
         <div style="display:flex;align-items:center;gap:-8px;">
           <div style="display:flex;">
-            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#9b5de5,#f72585);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">AJ</div>
-            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00f5d4,#9b5de5);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">TK</div>
-            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#b5f021,#00f5d4);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">FA</div>
-            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f72585,#b5f021);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">+</div>
+            <div class="avatar-pop" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#9b5de5,#f72585);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">AJ</div>
+            <div class="avatar-pop" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00f5d4,#9b5de5);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">TK</div>
+            <div class="avatar-pop" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#b5f021,#00f5d4);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">FA</div>
+            <div class="avatar-pop" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f72585,#b5f021);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">+</div>
           </div>
         </div>
         <div style="text-align:left;">
@@ -1091,19 +1091,19 @@
     <div style="max-width:1080px;margin:0 auto;">
 
       <div style="text-align:center;margin-bottom:64px;">
-        <div class="section-label fade-in" style="margin-bottom:16px;">🛠️ What You'll Build</div>
-        <h2 class="fade-in" style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;">
+        <div id="feat-label" class="section-label" style="margin-bottom:16px;opacity:0;">🛠️ What You'll Build</div>
+        <h2 id="feat-headline" style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;opacity:0;">
           Real Projects. Real Skills.<br><span class="grad-text">Real Results.</span>
         </h2>
-        <p class="fade-in" style="color:#94a3b8;font-size:1.05rem;max-width:480px;margin:0 auto;">
+        <p id="feat-sub" style="color:#94a3b8;font-size:1.05rem;max-width:480px;margin:0 auto;opacity:0;">
           You won't just watch—you'll build real projects that prove your skills from day one.
         </p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;">
+      <div id="feat-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;">
 
         <!-- Card 1 -->
-        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;">
+        <div class="glass-card tilt-card" style="padding:28px;display:flex;align-items:flex-start;gap:18px;opacity:0;transform:translateY(40px);">
           <div class="icon-ring" style="background:rgba(0,245,212,0.1);border:1px solid rgba(0,245,212,0.2);">🌐</div>
           <div>
             <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">Landing Pages</h3>
@@ -1112,7 +1112,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;transition-delay:0.1s;">
+        <div class="glass-card tilt-card" style="padding:28px;display:flex;align-items:flex-start;gap:18px;opacity:0;transform:translateY(40px);">
           <div class="icon-ring" style="background:rgba(155,93,229,0.1);border:1px solid rgba(155,93,229,0.2);">🎯</div>
           <div>
             <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">Portfolio Websites</h3>
@@ -1121,7 +1121,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;transition-delay:0.2s;">
+        <div class="glass-card tilt-card" style="padding:28px;display:flex;align-items:flex-start;gap:18px;opacity:0;transform:translateY(40px);">
           <div class="icon-ring" style="background:rgba(247,37,133,0.1);border:1px solid rgba(247,37,133,0.2);">🤖</div>
           <div>
             <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">AI Tools</h3>
@@ -1130,7 +1130,7 @@
         </div>
 
         <!-- Card 4 -->
-        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;transition-delay:0.3s;">
+        <div class="glass-card tilt-card" style="padding:28px;display:flex;align-items:flex-start;gap:18px;opacity:0;transform:translateY(40px);">
           <div class="icon-ring" style="background:rgba(181,240,33,0.1);border:1px solid rgba(181,240,33,0.2);">💎</div>
           <div>
             <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">SaaS Apps</h3>
@@ -1139,7 +1139,7 @@
         </div>
 
         <!-- Card 5 -->
-        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;transition-delay:0.4s;">
+        <div class="glass-card tilt-card" style="padding:28px;display:flex;align-items:flex-start;gap:18px;opacity:0;transform:translateY(40px);">
           <div class="icon-ring" style="background:rgba(0,245,212,0.1);border:1px solid rgba(0,245,212,0.2);">⚙️</div>
           <div>
             <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">Automation Workflows</h3>
@@ -1148,7 +1148,7 @@
         </div>
 
         <!-- Card 6 -->
-        <div class="glass-card fade-in" style="padding:28px;display:flex;align-items:flex-start;gap:18px;transition-delay:0.5s;">
+        <div class="glass-card tilt-card" style="padding:28px;display:flex;align-items:flex-start;gap:18px;opacity:0;transform:translateY(40px);">
           <div class="icon-ring" style="background:rgba(155,93,229,0.1);border:1px solid rgba(155,93,229,0.2);">🚀</div>
           <div>
             <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:6px;">Web Apps</h3>
@@ -1172,18 +1172,18 @@
     <div style="max-width:900px;margin:0 auto;">
 
       <div style="text-align:center;margin-bottom:60px;">
-        <div class="section-label fade-in" style="margin-bottom:16px;border-color:rgba(181,240,33,0.3);color:var(--lime);background:rgba(181,240,33,0.07);">
+        <div id="offer-label" class="section-label" style="margin-bottom:16px;border-color:rgba(181,240,33,0.3);color:var(--lime);background:rgba(181,240,33,0.07);opacity:0;">
           🎁 Free Access
         </div>
-        <h2 class="fade-in" style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;">
+        <h2 id="offer-headline" style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;opacity:0;">
           Start Free. Build Your First<br>
           <span class="grad-text-lime">Project This Week.</span>
         </h2>
-        <p class="fade-in" style="color:#94a3b8;font-size:1.05rem;">No credit card. No experience. No excuses.</p>
+        <p id="offer-sub" style="color:#94a3b8;font-size:1.05rem;opacity:0;">No credit card. No experience. No excuses.</p>
       </div>
 
       <!-- OFFER CARD -->
-      <div class="fade-in" style="background:rgba(255,255,255,0.03);border:1px solid rgba(0,245,212,0.2);border-radius:28px;overflow:hidden;box-shadow:0 0 80px rgba(0,245,212,0.08);">
+      <div id="offer-card" style="background:rgba(255,255,255,0.03);border:1px solid rgba(0,245,212,0.2);border-radius:28px;overflow:hidden;box-shadow:0 0 80px rgba(0,245,212,0.08);opacity:0;transform:translateY(40px);">
 
         <!-- top bar -->
         <div style="background:linear-gradient(90deg,rgba(0,245,212,0.12),rgba(155,93,229,0.12));padding:16px 32px;border-bottom:1px solid rgba(0,245,212,0.12);text-align:center;">
@@ -1196,7 +1196,7 @@
 
           <!-- left -->
           <div style="padding-right:32px;border-right:1px solid var(--border);">
-            <div class="offer-check-item">
+            <div class="offer-check-item offer-item-anim">
               <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,245,212,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">🎓</div>
               <div>
                 <div style="font-weight:600;margin-bottom:2px;">Free Training Access</div>
@@ -1266,24 +1266,24 @@
     <div style="max-width:860px;margin:0 auto;">
 
       <div style="text-align:center;margin-bottom:20px;">
-        <div class="section-label fade-in" style="margin-bottom:16px;">💎 Upgrade Plans</div>
-        <h2 class="fade-in" style="font-size:clamp(2rem,5vw,3rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;">
+        <div id="price-label" class="section-label" style="margin-bottom:16px;opacity:0;">💎 Upgrade Plans</div>
+        <h2 id="price-headline" style="font-size:clamp(2rem,5vw,3rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;opacity:0;">
           Level Up After Your<br>
           <span class="grad-text">Free Training</span>
         </h2>
       </div>
 
       <!-- urgency banner -->
-      <div class="urgency-bar fade-in" style="text-align:center;margin-bottom:48px;">
+      <div id="price-urgency" class="urgency-bar" style="text-align:center;margin-bottom:48px;opacity:0;transform:scaleX(0.8);">
         <span style="font-family:'Exo 2',sans-serif;font-size:0.85rem;font-weight:700;color:#f72585;">
           🔥 Limited discount for early members — prices go up soon
         </span>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:start;">
+      <div id="price-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:start;">
 
         <!-- BASIC PLAN -->
-        <div class="pricing-card fade-in">
+        <div class="pricing-card tilt-card" id="price-card-basic" style="opacity:0;transform:translateY(50px) rotateY(-8deg);">
           <div style="font-family:'Exo 2',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#94a3b8;margin-bottom:8px;">Starter</div>
           <h3 style="font-size:1.6rem;font-weight:800;margin-bottom:20px;">Basic Plan</h3>
 
@@ -1314,12 +1314,12 @@
             </li>
           </ul>
 
-          <a href="#" class="btn-secondary" style="width:100%;justify-content:center;">Get Basic Plan</a>
+          <a href="#" class="btn-secondary magnetic-btn" style="width:100%;justify-content:center;">Get Basic Plan</a>
           <p style="margin-top:12px;font-size:0.78rem;color:#475569;text-align:center;">Upgrade after your free training</p>
         </div>
 
         <!-- ADVANCED PLAN -->
-        <div class="pricing-card featured fade-in" style="transition-delay:0.15s;">
+        <div class="pricing-card featured tilt-card" id="price-card-adv" style="opacity:0;transform:translateY(50px) rotateY(8deg);">
           <div class="badge-popular">⚡ Most Popular</div>
 
           <div style="font-family:'Exo 2',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Advanced</div>
@@ -1356,14 +1356,14 @@
             </li>
           </ul>
 
-          <a href="#" class="btn-lime" style="width:100%;justify-content:center;">Get Advanced Plan →</a>
+          <a href="#" class="btn-lime magnetic-btn" style="width:100%;justify-content:center;">Get Advanced Plan →</a>
           <p style="margin-top:12px;font-size:0.78rem;color:#94a3b8;text-align:center;">Upgrade after your free training</p>
         </div>
 
       </div>
 
       <!-- bottom urgency -->
-      <p class="fade-in" style="text-align:center;margin-top:28px;font-size:0.85rem;color:#64748b;">
+      <p id="price-footnote" style="text-align:center;margin-top:28px;font-size:0.85rem;color:#64748b;opacity:0;">
         🔒 Start with the free community first. No pressure. No tricks.
       </p>
 
@@ -1375,47 +1375,47 @@
   <!-- ═══════════════════════════════════════════
        5. OUTCOME SECTION
   ═══════════════════════════════════════════ -->
-  <section style="padding:100px 24px;position:relative;overflow:hidden;">
+  <section id="outcomes-section" style="padding:100px 24px;position:relative;overflow:hidden;">
 
     <div class="orb orb-cyan" style="width:350px;height:350px;top:50%;left:-100px;transform:translateY(-50%);"></div>
 
     <div style="max-width:900px;margin:0 auto;">
 
       <div style="text-align:center;margin-bottom:60px;">
-        <div class="section-label fade-in" style="margin-bottom:16px;">🏆 Your Transformation</div>
-        <h2 class="fade-in" style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-0.03em;">
+        <div id="out-label" class="section-label" style="margin-bottom:16px;opacity:0;">🏆 Your Transformation</div>
+        <h2 id="out-headline" style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-0.03em;opacity:0;">
           What You'll <span class="grad-text">Achieve</span>
         </h2>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;">
 
-        <div class="outcome-item fade-in">
-          <div style="font-size:2rem;line-height:1;">🏗️</div>
+        <div class="outcome-item outcome-anim" style="opacity:0;transform:translateX(-50px);">
+          <div class="outcome-emoji" style="font-size:2rem;line-height:1;">🏗️</div>
           <div>
             <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:5px;">Build Real-World Projects</div>
             <div style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Go from idea to live product using AI tools—not just tutorials and theory.</div>
           </div>
         </div>
 
-        <div class="outcome-item fade-in" style="transition-delay:0.1s;">
-          <div style="font-size:2rem;line-height:1;">📁</div>
+        <div class="outcome-item outcome-anim" style="opacity:0;transform:translateX(50px);">
+          <div class="outcome-emoji" style="font-size:2rem;line-height:1;">📁</div>
           <div>
             <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:5px;">Create a Portfolio</div>
             <div style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Build a body of work that proves your skills to clients, employers, and partners.</div>
           </div>
         </div>
 
-        <div class="outcome-item fade-in" style="transition-delay:0.2s;">
-          <div style="font-size:2rem;line-height:1;">⚡</div>
+        <div class="outcome-item outcome-anim" style="opacity:0;transform:translateX(-50px);">
+          <div class="outcome-emoji" style="font-size:2rem;line-height:1;">⚡</div>
           <div>
             <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:5px;">Learn Faster With AI Tools</div>
             <div style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Skip the 3-year learning curve. AI supercharges your speed by 10x.</div>
           </div>
         </div>
 
-        <div class="outcome-item fade-in" style="transition-delay:0.3s;">
-          <div style="font-size:2rem;line-height:1;">💰</div>
+        <div class="outcome-item outcome-anim" style="opacity:0;transform:translateX(50px);">
+          <div class="outcome-emoji" style="font-size:2rem;line-height:1;">💰</div>
           <div>
             <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:5px;">Start Earning With Your Skills</div>
             <div style="font-size:0.88rem;color:#94a3b8;line-height:1.6;">Freelance, launch products, or land tech roles—your new skills pay real money.</div>
@@ -1431,42 +1431,42 @@
   <!-- ═══════════════════════════════════════════
        6. FINAL CTA SECTION
   ═══════════════════════════════════════════ -->
-  <section style="padding:120px 24px;position:relative;overflow:hidden;text-align:center;">
+  <section id="final-cta" style="padding:120px 24px;position:relative;overflow:hidden;text-align:center;">
 
     <div class="orb orb-purple" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.12;"></div>
     <div class="orb orb-cyan"   style="width:300px;height:300px;top:20%;right:-80px;opacity:0.1;"></div>
 
     <!-- big decorative text -->
-    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Exo 2',sans-serif;font-size:clamp(6rem,20vw,16rem);font-weight:900;color:rgba(255,255,255,0.02);letter-spacing:-0.05em;pointer-events:none;white-space:nowrap;">
+    <div id="cta-vibe-text" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Exo 2',sans-serif;font-size:clamp(6rem,20vw,16rem);font-weight:900;color:rgba(255,255,255,0.02);letter-spacing:-0.05em;pointer-events:none;white-space:nowrap;opacity:0;">
       VIBE
     </div>
 
     <div style="position:relative;z-index:1;max-width:720px;margin:0 auto;">
 
-      <div class="section-label fade-in" style="margin-bottom:24px;">🔥 Last Call</div>
+      <div id="cta-label" class="section-label" style="margin-bottom:24px;opacity:0;">🔥 Last Call</div>
 
-      <h2 class="fade-in" style="font-size:clamp(2.2rem,6vw,4rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:24px;line-height:1.08;">
+      <h2 id="cta-headline" style="font-size:clamp(2.2rem,6vw,4rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:24px;line-height:1.08;opacity:0;">
         Stop Watching Tutorials.<br>
         <span class="grad-text">Start Building.</span>
       </h2>
 
-      <p class="fade-in" style="font-size:1.05rem;color:#94a3b8;margin-bottom:16px;line-height:1.7;">
+      <p id="cta-sub" style="font-size:1.05rem;color:#94a3b8;margin-bottom:16px;line-height:1.7;opacity:0;">
         The builders who win aren't the smartest ones.<br>They're the ones who start first.
       </p>
 
       <!-- urgency badge -->
-      <div class="fade-in urgency-bar" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:40px;">
+      <div id="cta-urgency" class="urgency-bar" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:40px;opacity:0;transform:scale(0.9);">
         <span class="pulse-dot"></span>
         <span style="font-size:0.85rem;font-weight:600;color:#f72585;">Free training access available for a limited time</span>
       </div>
 
-      <div class="fade-in" style="display:flex;justify-content:center;">
-        <a href="#free-offer" class="btn-lime" style="font-size:1.15rem;padding:18px 48px;">
+      <div id="cta-btn-wrap" style="display:flex;justify-content:center;opacity:0;transform:translateY(24px);">
+        <a href="#free-offer" class="btn-lime magnetic-btn" style="font-size:1.15rem;padding:18px 48px;">
           ⚡ Join VibeCity Free Now
         </a>
       </div>
 
-      <p class="fade-in" style="margin-top:16px;font-size:0.8rem;color:#475569;">
+      <p id="cta-footer-note" style="margin-top:16px;font-size:0.8rem;color:#475569;opacity:0;">
         ✓ Instant access &nbsp;·&nbsp; ✓ Zero cost &nbsp;·&nbsp; ✓ No card required
       </p>
 
@@ -1487,192 +1487,374 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-  <!-- ═══════════════════════════════════════════
-       SCROLL ANIMATION JS
-  ═══════════════════════════════════════════ -->
   <script>
-    // ── 1. Intersection Observer for fade-in ──
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  gsap.registerPlugin(ScrollTrigger);
 
-    // ── 2. Smooth scroll ──
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  // ═══════════════════════════════════════════
+  // SHARED UTILITY — global cursor spotlight
+  // ═══════════════════════════════════════════
+  const cursorSpot = document.createElement('div');
+  cursorSpot.style.cssText = `
+    position:fixed;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(0,245,212,0.055) 0%,transparent 70%);
+    pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+    top:-999px;left:-999px;transition:none;will-change:transform;
+  `;
+  document.body.appendChild(cursorSpot);
+  const setGlobalX = gsap.quickTo(cursorSpot, 'left', { duration:0.7, ease:'power2.out' });
+  const setGlobalY = gsap.quickTo(cursorSpot, 'top',  { duration:0.7, ease:'power2.out' });
+  window.addEventListener('mousemove', e => { setGlobalX(e.clientX); setGlobalY(e.clientY); });
+
+  // ═══════════════════════════════════════════
+  // SHARED UTILITY — 3D Tilt on any .tilt-card
+  // ═══════════════════════════════════════════
+  function bindTilt(selector, glowColor) {
+    document.querySelectorAll(selector).forEach(card => {
+      const gc = glowColor || 'rgba(0,245,212,0.25)';
+      const setRX = gsap.quickTo(card, 'rotateX', { duration:0.5, ease:'power2.out' });
+      const setRY = gsap.quickTo(card, 'rotateY', { duration:0.5, ease:'power2.out' });
+      const setSc = gsap.quickTo(card, 'scale',   { duration:0.4, ease:'back.out(2)' });
+      card.style.transformStyle = 'preserve-3d';
+      card.addEventListener('mouseenter', () => {
+        card.style.boxShadow = `0 0 40px ${gc}, 0 12px 40px rgba(0,0,0,0.5)`;
+        setSc(1.04);
+      });
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const dx = (e.clientX - r.left - r.width/2)  / (r.width/2);
+        const dy = (e.clientY - r.top  - r.height/2) / (r.height/2);
+        setRY(dx * 12); setRX(-dy * 8);
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.boxShadow = '';
+        setSc(1); setRX(0); setRY(0);
       });
     });
+  }
 
-    // ─────────────────────────────────────────
-    // ── 3. TOOLS SECTION — GSAP ANIMATIONS ──
-    // ─────────────────────────────────────────
-    gsap.registerPlugin(ScrollTrigger);
+  // ═══════════════════════════════════════════
+  // SHARED UTILITY — Magnetic buttons
+  // ═══════════════════════════════════════════
+  function bindMagnetic(selector) {
+    document.querySelectorAll(selector).forEach(btn => {
+      const setX = gsap.quickTo(btn, 'x', { duration:0.4, ease:'power2.out' });
+      const setY = gsap.quickTo(btn, 'y', { duration:0.4, ease:'power2.out' });
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        setX((e.clientX - r.left - r.width/2)  * 0.35);
+        setY((e.clientY - r.top  - r.height/2) * 0.35);
+      });
+      btn.addEventListener('mouseleave', () => { setX(0); setY(0); });
+    });
+  }
 
-    // ── 3a. Floating particles ──
-    const particlesContainer = document.getElementById('tools-particles');
+  // ═══════════════════════════════════════════
+  // SHARED UTILITY — Random glitch on element
+  // ═══════════════════════════════════════════
+  function startGlitch(el, minMs, maxMs) {
+    if (!el) return;
+    function fire() {
+      gsap.timeline()
+        .to(el, { skewX:7,   duration:0.05, ease:'none' })
+        .to(el, { skewX:-5,  duration:0.05, ease:'none' })
+        .to(el, { skewX:0,   duration:0.05, ease:'none' })
+        .to(el, { opacity:0.65, duration:0.04 })
+        .to(el, { opacity:1,    duration:0.04 });
+      setTimeout(fire, Math.random()*(maxMs-minMs)+minMs);
+    }
+    setTimeout(fire, minMs);
+  }
+
+  // ═══════════════════════════════════════════
+  // 1.  NAV — slide down on load
+  // ═══════════════════════════════════════════
+  gsap.fromTo('nav',
+    { y:-80, opacity:0 },
+    { y:0, opacity:1, duration:0.8, ease:'power3.out', delay:0.1 }
+  );
+
+  // ═══════════════════════════════════════════
+  // 2.  HERO — staggered reveal on load
+  // ═══════════════════════════════════════════
+  const heroTL = gsap.timeline({ delay:0.5 });
+  heroTL
+    .to('#hero-label',  { opacity:1, y:0, scale:1, duration:0.6, ease:'back.out(2)' }, 0)
+    .to('#hero-headline',{ opacity:1, y:0, duration:0.75, ease:'power3.out' }, 0.18)
+    .to('#hero-sub',    { opacity:1, y:0, duration:0.6, ease:'power2.out' }, 0.38)
+    .to('#hero-ctas',   { opacity:1, y:0, duration:0.55, ease:'power2.out' }, 0.52)
+    .to('#hero-micro',  { opacity:1, duration:0.5 }, 0.65)
+    .to('#hero-social', { opacity:1, y:0, duration:0.6, ease:'back.out(1.5)' }, 0.72);
+
+  // Avatar pop with stagger
+  gsap.from('.avatar-pop', {
+    scale:0, opacity:0, duration:0.5, stagger:0.1, ease:'back.out(2)', delay:1.4
+  });
+
+  // Hero gradient word shimmer
+  gsap.to('#hero-grad-word', {
+    backgroundPosition:'200% center', duration:3, ease:'sine.inOut',
+    repeat:-1, yoyo:true
+  });
+  startGlitch(document.getElementById('hero-grad-word'), 3000, 6000);
+
+  // Hero section cursor parallax for orbs
+  const heroSection = document.getElementById('hero-section');
+  if (heroSection) {
+    const heroOrbs = heroSection.querySelectorAll('.orb');
+    heroSection.addEventListener('mousemove', e => {
+      const r = heroSection.getBoundingClientRect();
+      const mx = (e.clientX - r.left) / r.width  - 0.5;
+      const my = (e.clientY - r.top)  / r.height - 0.5;
+      heroOrbs.forEach((orb, i) => {
+        const factor = (i % 2 === 0) ? 30 : -20;
+        gsap.to(orb, { x: mx*factor, y: my*factor*0.6, duration:1.2, ease:'power1.out', overwrite:'auto' });
+      });
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // 3.  TOOLS SECTION (existing logic kept)
+  // ═══════════════════════════════════════════
+  const particlesContainer = document.getElementById('tools-particles');
+  if (particlesContainer) {
     for (let i = 0; i < 28; i++) {
       const dot = document.createElement('div');
-      const size = Math.random() * 3 + 1.5;
+      const size = Math.random()*3+1.5;
       const colors = ['#00f5d4','#9b5de5','#f72585','#b5f021','#4a9dff'];
-      const color  = colors[Math.floor(Math.random() * colors.length)];
-      dot.style.cssText = `
-        position:absolute;
-        width:${size}px; height:${size}px;
-        border-radius:50%;
-        background:${color};
-        box-shadow:0 0 ${size*3}px ${color};
-        left:${Math.random()*100}%;
-        top:${Math.random()*100}%;
-        opacity:0;
-      `;
+      const color  = colors[Math.floor(Math.random()*colors.length)];
+      dot.style.cssText = `position:absolute;width:${size}px;height:${size}px;border-radius:50%;background:${color};box-shadow:0 0 ${size*3}px ${color};left:${Math.random()*100}%;top:${Math.random()*100}%;opacity:0;`;
       particlesContainer.appendChild(dot);
-      gsap.to(dot, {
-        y: -(Math.random()*120 + 60),
-        x: (Math.random()-0.5)*80,
-        opacity: Math.random()*0.6 + 0.2,
-        duration: Math.random()*4 + 4,
-        repeat: -1,
-        yoyo: false,
-        delay: Math.random()*5,
-        ease: 'none',
-        onRepeat() { gsap.set(dot, { y:0, opacity:0, x:0 }); }
-      });
+      gsap.to(dot, { y:-(Math.random()*120+60), x:(Math.random()-0.5)*80, opacity:Math.random()*0.6+0.2, duration:Math.random()*4+4, repeat:-1, delay:Math.random()*5, ease:'none', onRepeat(){ gsap.set(dot,{y:0,opacity:0,x:0}); } });
     }
+  }
 
-    // ── 3b. Headline reveal on scroll ──
-    const toolsST = ScrollTrigger.create({
-      trigger: '#tools-section',
-      start: 'top 75%',
-      onEnter() {
-        // label pop
-        gsap.fromTo('#tools-label',
-          { opacity:0, y:20, scale:0.9 },
-          { opacity:1, y:0,  scale:1, duration:0.6, ease:'back.out(2)' }
-        );
-        // headline
-        gsap.fromTo('#tools-headline',
-          { opacity:0, y:40 },
-          { opacity:1, y:0, duration:0.7, delay:0.15, ease:'power3.out' }
-        );
-        // "Master" word colour-shift shimmer
-        gsap.fromTo('#tools-master-word',
-          { backgroundSize:'100% 100%' },
-          { backgroundSize:'200% 200%', duration:2, delay:0.5, ease:'sine.inOut', repeat:-1, yoyo:true }
-        );
-        // subtitle
-        gsap.to('#tools-sub', { opacity:1, y:0, duration:0.6, delay:0.35, ease:'power2.out' });
-        // badges stagger
-        gsap.fromTo('#tools-badges',
-          { opacity:0, y:16 },
-          { opacity:1, y:0, duration:0.5, delay:0.5, ease:'power2.out' }
-        );
-        // bottom CTA text
-        gsap.to('#tools-cta-text', { opacity:1, duration:0.6, delay:0.8 });
+  ScrollTrigger.create({ trigger:'#tools-section', start:'top 75%', onEnter() {
+    gsap.fromTo('#tools-label',   { opacity:0,y:20,scale:0.9 }, { opacity:1,y:0,scale:1,duration:0.6,ease:'back.out(2)' });
+    gsap.fromTo('#tools-headline',{ opacity:0,y:40 },           { opacity:1,y:0,duration:0.7,delay:0.15,ease:'power3.out' });
+    gsap.to('#tools-sub',    { opacity:1,y:0,duration:0.6,delay:0.35,ease:'power2.out' });
+    gsap.fromTo('#tools-badges',  { opacity:0,y:16 },           { opacity:1,y:0,duration:0.5,delay:0.5,ease:'power2.out' });
+    gsap.to('#tools-cta-text', { opacity:1,duration:0.6,delay:0.8 });
+  }});
+
+  startGlitch(document.getElementById('tools-master-word'), 2500, 5500);
+
+  const row1 = document.getElementById('marquee-row-1');
+  const row2 = document.getElementById('marquee-row-2');
+  let r1X=0,r2X=0;
+  const SPEED_1=-0.55, SPEED_2=0.55;
+  let r1Speed=SPEED_1, r2Speed=SPEED_2;
+  gsap.ticker.add(() => {
+    const hw1=row1.scrollWidth/2, hw2=row2.scrollWidth/2;
+    r1X+=r1Speed; if(r1X<=-hw1)r1X=0; if(r1X>0)r1X=-hw1; gsap.set(row1,{x:r1X});
+    r2X+=r2Speed; if(r2X>=0)r2X=-hw2;  if(r2X<-hw2)r2X=0; gsap.set(row2,{x:r2X});
+  });
+
+  document.querySelectorAll('.tool-card').forEach(card => {
+    const color=card.dataset.color||'#00f5d4', glow=card.dataset.glow||'rgba(0,245,212,0.3)';
+    const isRow1=card.closest('.marquee-row')?.id==='marquee-row-1';
+    const setRX=gsap.quickTo(card,'rotateX',{duration:0.4,ease:'power2.out'});
+    const setRY=gsap.quickTo(card,'rotateY',{duration:0.4,ease:'power2.out'});
+    const setSc=gsap.quickTo(card,'scale',{duration:0.35,ease:'back.out(2)'});
+    card.addEventListener('mouseenter',()=>{ card.style.borderColor=color; card.style.boxShadow=`0 0 32px ${glow}`; card.style.zIndex='10'; setSc(1.1); isRow1?(r1Speed=SPEED_1*0.18):(r2Speed=SPEED_2*0.18); });
+    card.addEventListener('mousemove',e=>{ const r=card.getBoundingClientRect(); setRY((e.clientX-r.left-r.width/2)/(r.width/2)*14); setRX(-(e.clientY-r.top-r.height/2)/(r.height/2)*10); });
+    card.addEventListener('mouseleave',()=>{ card.style.borderColor=''; card.style.boxShadow=''; card.style.zIndex=''; setSc(1); setRX(0); setRY(0); isRow1?(r1Speed=SPEED_1):(r2Speed=SPEED_2); });
+  });
+
+  // Tools section spotlight (section-scoped)
+  const toolsSpot = document.getElementById('tools-spotlight');
+  const toolsSec  = document.getElementById('tools-section');
+  if (toolsSpot && toolsSec) {
+    const tsX = gsap.quickTo(toolsSpot,'left',{duration:0.6,ease:'power2.out'});
+    const tsY = gsap.quickTo(toolsSpot,'top', {duration:0.6,ease:'power2.out'});
+    toolsSec.addEventListener('mousemove', e=>{ const r=toolsSec.getBoundingClientRect(); tsX(e.clientX-r.left); tsY(e.clientY-r.top); });
+  }
+
+  // ═══════════════════════════════════════════
+  // 4.  FEATURES SECTION
+  // ═══════════════════════════════════════════
+  ScrollTrigger.create({ trigger:'#features', start:'top 70%', onEnter() {
+    gsap.fromTo('#feat-label',    { opacity:0,y:22,scale:0.88 }, { opacity:1,y:0,scale:1,duration:0.65,ease:'back.out(2)' });
+    gsap.fromTo('#feat-headline', { opacity:0,y:36 },            { opacity:1,y:0,duration:0.7,delay:0.15,ease:'power3.out' });
+    gsap.fromTo('#feat-sub',      { opacity:0,y:20 },            { opacity:1,y:0,duration:0.55,delay:0.3,ease:'power2.out' });
+    gsap.fromTo('#feat-grid .tilt-card',
+      { opacity:0, y:50, scale:0.92, rotateX:8 },
+      { opacity:1, y:0,  scale:1,    rotateX:0, stagger:0.1, duration:0.7, delay:0.4, ease:'power3.out' }
+    );
+  }});
+  bindTilt('#feat-grid .tilt-card', 'rgba(0,245,212,0.2)');
+
+  // Icon rings spin on card hover
+  document.querySelectorAll('#feat-grid .glass-card').forEach(card => {
+    const ring = card.querySelector('.icon-ring');
+    if (!ring) return;
+    card.addEventListener('mouseenter', () => gsap.to(ring, { rotate:360, duration:0.7, ease:'power2.out' }));
+    card.addEventListener('mouseleave', () => gsap.to(ring, { rotate:0, duration:0.5, ease:'power2.inOut' }));
+  });
+
+  // ═══════════════════════════════════════════
+  // 5.  FREE OFFER SECTION
+  // ═══════════════════════════════════════════
+  ScrollTrigger.create({ trigger:'#free-offer', start:'top 72%', onEnter() {
+    gsap.fromTo('#offer-label',    { opacity:0,y:20,scale:0.88 }, { opacity:1,y:0,scale:1,duration:0.6,ease:'back.out(2)' });
+    gsap.fromTo('#offer-headline', { opacity:0,y:32 },            { opacity:1,y:0,duration:0.7,delay:0.15,ease:'power3.out' });
+    gsap.fromTo('#offer-sub',      { opacity:0,y:16 },            { opacity:1,y:0,duration:0.55,delay:0.3,ease:'power2.out' });
+    gsap.fromTo('#offer-card',     { opacity:0,y:40,scale:0.97 }, { opacity:1,y:0,scale:1,duration:0.75,delay:0.45,ease:'back.out(1.4)' });
+    gsap.fromTo('.offer-item-anim',
+      { opacity:0, x:-30 },
+      { opacity:1, x:0, stagger:0.14, duration:0.6, delay:0.7, ease:'power2.out' }
+    );
+  }});
+
+  // Offer card border pulse
+  const offerCard = document.getElementById('offer-card');
+  if (offerCard) {
+    gsap.to(offerCard, {
+      boxShadow:'0 0 120px rgba(0,245,212,0.18)',
+      repeat:-1, yoyo:true, duration:2.5, ease:'sine.inOut', delay:1.5
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // 6.  PRICING SECTION
+  // ═══════════════════════════════════════════
+  ScrollTrigger.create({ trigger:'#pricing', start:'top 72%', onEnter() {
+    gsap.fromTo('#price-label',    { opacity:0,y:20,scale:0.88 }, { opacity:1,y:0,scale:1,duration:0.6,ease:'back.out(2)' });
+    gsap.fromTo('#price-headline', { opacity:0,y:32 },            { opacity:1,y:0,duration:0.7,delay:0.15,ease:'power3.out' });
+    gsap.fromTo('#price-urgency',  { opacity:0,scaleX:0.75 },     { opacity:1,scaleX:1,duration:0.65,delay:0.35,ease:'back.out(1.5)' });
+    gsap.fromTo('#price-card-basic',
+      { opacity:0, y:60, rotateY:-12, scale:0.95 },
+      { opacity:1, y:0,  rotateY:0,   scale:1, duration:0.85, delay:0.5, ease:'power3.out' }
+    );
+    gsap.fromTo('#price-card-adv',
+      { opacity:0, y:60, rotateY:12, scale:0.95 },
+      { opacity:1, y:0,  rotateY:0,  scale:1, duration:0.85, delay:0.65, ease:'power3.out' }
+    );
+    gsap.fromTo('#price-footnote', { opacity:0 }, { opacity:1, duration:0.5, delay:1 });
+
+    // "Most Popular" badge bounce
+    gsap.fromTo('.badge-popular',
+      { scale:0, rotation:-10 },
+      { scale:1, rotation:0, duration:0.6, delay:0.85, ease:'back.out(3)' }
+    );
+
+    // Feature check items cascade
+    document.querySelectorAll('#price-grid .feature-check').forEach((el,i) => {
+      gsap.fromTo(el, { scale:0, opacity:0 }, { scale:1, opacity:1, duration:0.35, delay:0.9+i*0.06, ease:'back.out(3)' });
+    });
+  }});
+  bindTilt('#price-card-basic', 'rgba(0,245,212,0.2)');
+  bindTilt('#price-card-adv',   'rgba(181,240,33,0.2)');
+
+  // Pricing card featured pulse glow
+  const featCard = document.getElementById('price-card-adv');
+  if (featCard) {
+    gsap.to(featCard, {
+      boxShadow:'0 0 90px rgba(0,245,212,0.22)',
+      repeat:-1, yoyo:true, duration:2.2, ease:'sine.inOut', delay:1.8
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // 7.  OUTCOMES SECTION
+  // ═══════════════════════════════════════════
+  ScrollTrigger.create({ trigger:'#outcomes-section', start:'top 72%', onEnter() {
+    gsap.fromTo('#out-label',    { opacity:0,y:22,scale:0.88 }, { opacity:1,y:0,scale:1,duration:0.6,ease:'back.out(2)' });
+    gsap.fromTo('#out-headline', { opacity:0,y:32 },            { opacity:1,y:0,duration:0.7,delay:0.15,ease:'power3.out' });
+    document.querySelectorAll('.outcome-anim').forEach((el,i) => {
+      const fromX = i%2===0 ? -55 : 55;
+      gsap.fromTo(el, { opacity:0,x:fromX,scale:0.94 }, { opacity:1,x:0,scale:1,duration:0.75,delay:0.35+i*0.15,ease:'power3.out' });
+    });
+    // Emoji springy bounce
+    document.querySelectorAll('.outcome-emoji').forEach((em,i) => {
+      gsap.fromTo(em, { scale:0,rotation:-20 }, { scale:1,rotation:0,duration:0.6,delay:0.5+i*0.15,ease:'back.out(3)' });
+    });
+  }});
+
+  // Outcome items hover — emoji spin
+  document.querySelectorAll('.outcome-item').forEach(item => {
+    const em = item.querySelector('.outcome-emoji');
+    if (!em) return;
+    item.addEventListener('mouseenter', () => gsap.to(em, { rotation:15, scale:1.25, duration:0.3, ease:'back.out(2)' }));
+    item.addEventListener('mouseleave', () => gsap.to(em, { rotation:0,  scale:1,    duration:0.25 }));
+  });
+
+  // ═══════════════════════════════════════════
+  // 8.  FINAL CTA SECTION
+  // ═══════════════════════════════════════════
+  ScrollTrigger.create({ trigger:'#final-cta', start:'top 72%', onEnter() {
+    // Big VIBE text parallax reveal
+    gsap.fromTo('#cta-vibe-text',
+      { opacity:0, scale:0.7, letterSpacing:'-0.12em' },
+      { opacity:1, scale:1,   letterSpacing:'-0.05em', duration:1.4, ease:'power3.out' }
+    );
+    gsap.fromTo('#cta-label',    { opacity:0,y:24,scale:0.88 }, { opacity:1,y:0,scale:1,duration:0.65,delay:0.2,ease:'back.out(2)' });
+    gsap.fromTo('#cta-headline', { opacity:0,y:40 },            { opacity:1,y:0,duration:0.8,delay:0.35,ease:'power3.out' });
+    gsap.fromTo('#cta-sub',      { opacity:0,y:20 },            { opacity:1,y:0,duration:0.6,delay:0.55,ease:'power2.out' });
+    gsap.fromTo('#cta-urgency',  { opacity:0,scale:0.85 },      { opacity:1,scale:1,duration:0.6,delay:0.7,ease:'back.out(1.8)' });
+    gsap.fromTo('#cta-btn-wrap', { opacity:0,y:24,scale:0.9 },  { opacity:1,y:0,scale:1,duration:0.7,delay:0.85,ease:'back.out(2)' });
+    gsap.fromTo('#cta-footer-note',{ opacity:0 },               { opacity:1,duration:0.5,delay:1.05 });
+  }});
+
+  // VIBE text slow parallax on scroll
+  gsap.to('#cta-vibe-text', {
+    y:-60, scale:1.08,
+    scrollTrigger:{
+      trigger:'#final-cta', start:'top bottom', end:'bottom top', scrub:true
+    }
+  });
+
+  startGlitch(document.querySelector('#cta-headline .grad-text'), 2000, 5000);
+
+  // CTA button particle burst on click
+  document.querySelectorAll('#cta-btn-wrap .btn-lime').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const colors = ['#00f5d4','#9b5de5','#f72585','#b5f021'];
+      for (let i=0;i<14;i++) {
+        const p = document.createElement('div');
+        const size = Math.random()*7+4;
+        const color = colors[Math.floor(Math.random()*colors.length)];
+        p.style.cssText = `position:fixed;width:${size}px;height:${size}px;border-radius:50%;background:${color};pointer-events:none;z-index:99999;left:${e.clientX}px;top:${e.clientY}px;box-shadow:0 0 ${size*2}px ${color};`;
+        document.body.appendChild(p);
+        gsap.to(p, {
+          x:(Math.random()-0.5)*200, y:(Math.random()-0.8)*180,
+          opacity:0, scale:0.3, duration:0.8+Math.random()*0.4,
+          ease:'power2.out',
+          onComplete(){ p.remove(); }
+        });
       }
     });
+  });
 
-    // ── 3c. Continuous marquee (GSAP ticker) ──
-    const row1 = document.getElementById('marquee-row-1');
-    const row2 = document.getElementById('marquee-row-2');
+  // ═══════════════════════════════════════════
+  // 9.  MAGNETIC BUTTONS (global)
+  // ═══════════════════════════════════════════
+  bindMagnetic('.magnetic-btn');
 
-    let r1X = 0, r2X = 0;
-    const SPEED_1 = -0.55; // left
-    const SPEED_2 =  0.55; // right
-    let r1Speed = SPEED_1, r2Speed = SPEED_2;
-
-    function getHalfWidth(row) {
-      return row.scrollWidth / 2;
-    }
-
-    gsap.ticker.add(() => {
-      const hw1 = getHalfWidth(row1);
-      const hw2 = getHalfWidth(row2);
-
-      r1X += r1Speed;
-      if (r1X <= -hw1) r1X = 0;
-      if (r1X > 0)     r1X = -hw1;
-      gsap.set(row1, { x: r1X });
-
-      r2X += r2Speed;
-      if (r2X >= 0)    r2X = -hw2;
-      if (r2X < -hw2)  r2X = 0;
-      gsap.set(row2, { x: r2X });
+  // ═══════════════════════════════════════════
+  // 10. SCROLL PROGRESS — glow-line animation
+  // ═══════════════════════════════════════════
+  document.querySelectorAll('.glow-line').forEach(line => {
+    ScrollTrigger.create({
+      trigger: line,
+      start: 'top 90%',
+      onEnter() {
+        gsap.fromTo(line,
+          { scaleX:0, opacity:0, transformOrigin:'left center' },
+          { scaleX:1, opacity:1, duration:1, ease:'power2.out' }
+        );
+      }
     });
+  });
 
-    // ── 3d. Tool card — 3D tilt + glow hover + speed nudge ──
-    document.querySelectorAll('.tool-card').forEach(card => {
-      const color = card.dataset.color || '#00f5d4';
-      const glow  = card.dataset.glow  || 'rgba(0,245,212,0.3)';
-      const row   = card.closest('.marquee-row');
-      const isRow1 = row && row.id === 'marquee-row-1';
-
-      // quick-to setters for smooth following
-      const setRX = gsap.quickTo(card, 'rotateX', { duration:0.4, ease:'power2.out' });
-      const setRY = gsap.quickTo(card, 'rotateY', { duration:0.4, ease:'power2.out' });
-      const setSc = gsap.quickTo(card, 'scale',   { duration:0.35, ease:'back.out(2)' });
-
-      card.addEventListener('mouseenter', () => {
-        card.style.borderColor = color;
-        card.style.boxShadow   = `0 0 32px ${glow}, 0 8px 32px rgba(0,0,0,0.4)`;
-        card.style.zIndex      = '10';
-        setSc(1.1);
-        // slow the row while hovering
-        if (isRow1) r1Speed = SPEED_1 * 0.18;
-        else        r2Speed = SPEED_2 * 0.18;
-      });
-
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const cx   = rect.left + rect.width  / 2;
-        const cy   = rect.top  + rect.height / 2;
-        const dx   = (e.clientX - cx) / (rect.width  / 2);
-        const dy   = (e.clientY - cy) / (rect.height / 2);
-        setRY( dx * 14);
-        setRX(-dy * 10);
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.borderColor = 'rgba(255,255,255,0.08)';
-        card.style.boxShadow   = 'none';
-        card.style.zIndex      = '';
-        setSc(1);
-        setRX(0);
-        setRY(0);
-        // restore speed
-        if (isRow1) r1Speed = SPEED_1;
-        else        r2Speed = SPEED_2;
-      });
+  // ═══════════════════════════════════════════
+  // 11. SMOOTH SCROLL (anchor links)
+  // ═══════════════════════════════════════════
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
     });
-
-    // ── 3e. Cursor spotlight ──
-    const spotlight = document.getElementById('tools-spotlight');
-    const section   = document.getElementById('tools-section');
-    const setSpotX  = gsap.quickTo(spotlight, 'left', { duration:0.6, ease:'power2.out' });
-    const setSpotY  = gsap.quickTo(spotlight, 'top',  { duration:0.6, ease:'power2.out' });
-
-    section.addEventListener('mousemove', e => {
-      const rect = section.getBoundingClientRect();
-      setSpotX(e.clientX - rect.left);
-      setSpotY(e.clientY - rect.top);
-    });
-
-    // ── 3f. "Master" word: random glitch flicker ──
-    function glitchMaster() {
-      const el = document.getElementById('tools-master-word');
-      if (!el) return;
-      const tl = gsap.timeline();
-      tl.to(el, { skewX:8,  duration:0.06, ease:'none' })
-        .to(el, { skewX:-6, duration:0.06, ease:'none' })
-        .to(el, { skewX:0,  duration:0.06, ease:'none' })
-        .to(el, { opacity:0.7, duration:0.04 })
-        .to(el, { opacity:1,   duration:0.04 });
-      setTimeout(glitchMaster, Math.random()*3500 + 2000);
-    }
-    setTimeout(glitchMaster, 2500);
+  });
 
   </script>
 
