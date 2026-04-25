@@ -2592,6 +2592,9 @@
   // 3.5  REVENUE SLIDER SECTION
   // ═══════════════════════════════════════════
 
+  // 3.5  REVENUE SLIDER SECTION
+  // ═══════════════════════════════════════════
+
   // Headline reveal
   ScrollTrigger.create({ trigger:'#revenue-section', start:'top 75%', onEnter() {
     gsap.fromTo('#rev-label',    {opacity:0,y:16,scale:0.88}, {opacity:1,y:0,scale:1,duration:0.55,ease:'back.out(2)'});
@@ -2608,93 +2611,85 @@
     });
   }});
 
-  // Auto-scroll slider with infinite loop
+  // Auto-scroll slider with continuous smooth scroll (like marquee)
   const sliderTrack = document.getElementById('slider-track');
   const sliderPrev = document.getElementById('slider-prev');
   const sliderNext = document.getElementById('slider-next');
-  const sliderRevenue = document.getElementById('revenue-section');
   const cardWidth = 350 + 20; // card + gap
-  let autoScrollInterval;
-  let isAutoScrollPaused = false;
+  let sliderX = 0;
+  let sliderSpeed = 0.5; // pixels per frame
+  let isSliderPaused = false;
+  let sliderTickerId;
 
-  function startAutoScroll() {
-    if (autoScrollInterval) clearInterval(autoScrollInterval);
-    isAutoScrollPaused = false;
-    
-    autoScrollInterval = setInterval(() => {
-      if (sliderTrack && !isAutoScrollPaused) {
-        const scrollLeft = sliderTrack.scrollLeft;
+  if (sliderTrack) {
+    // Start continuous auto-scroll using gsap.ticker
+    sliderTickerId = gsap.ticker.add(() => {
+      if (!isSliderPaused) {
         const scrollWidth = sliderTrack.scrollWidth;
         const clientWidth = sliderTrack.clientWidth;
         
-        // If at end, loop back to start
-        if (scrollLeft + clientWidth >= scrollWidth - 10) {
-          gsap.to(sliderTrack, { scrollTo: 0, duration: 0.8, ease: 'power2.inOut' });
-        } else {
-          gsap.to(sliderTrack, { scrollTo: scrollLeft + cardWidth, duration: 0.8, ease: 'power2.inOut' });
+        sliderX += sliderSpeed;
+        
+        // Infinite loop: wrap back to start when reaching end
+        if (sliderX >= scrollWidth - clientWidth) {
+          sliderX = 0;
         }
+        
+        sliderTrack.scrollLeft = sliderX;
       }
-    }, 4000); // Auto-scroll every 4 seconds
-  }
+    });
 
-  function pauseAutoScroll() {
-    isAutoScrollPaused = true;
-  }
+    // Pause on mouse enter
+    sliderTrack.addEventListener('mouseenter', () => {
+      isSliderPaused = true;
+    });
 
-  function resumeAutoScroll() {
-    isAutoScrollPaused = false;
-  }
+    // Resume on mouse leave
+    sliderTrack.addEventListener('mouseleave', () => {
+      isSliderPaused = false;
+    });
 
-  // Start auto-scroll when slider comes into view
-  ScrollTrigger.create({
-    trigger: sliderRevenue,
-    start: 'top center',
-    onEnter: startAutoScroll,
-    onLeave: () => {
-      if (autoScrollInterval) clearInterval(autoScrollInterval);
+    // Pause/resume on card hover
+    document.querySelectorAll('.revenue-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        isSliderPaused = true;
+        gsap.to(card, { y:-8, duration:0.3, ease:'back.out(2)' });
+      });
+      card.addEventListener('mouseleave', () => {
+        isSliderPaused = false;
+        gsap.to(card, { y:0, duration:0.3 });
+      });
+    });
+
+    // Manual navigation with arrow buttons
+    if (sliderPrev && sliderNext) {
+      sliderPrev.addEventListener('click', () => {
+        isSliderPaused = true;
+        sliderX = Math.max(0, sliderX - cardWidth);
+        sliderTrack.scrollLeft = sliderX;
+        setTimeout(() => { isSliderPaused = false; }, 500);
+      });
+
+      sliderNext.addEventListener('click', () => {
+        isSliderPaused = true;
+        sliderX += cardWidth;
+        sliderTrack.scrollLeft = sliderX;
+        setTimeout(() => { isSliderPaused = false; }, 500);
+      });
+
+      // Hover effects on nav buttons
+      [sliderPrev, sliderNext].forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+          isSliderPaused = true;
+          gsap.to(btn, { background:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.2)', duration:0.3 });
+        });
+        btn.addEventListener('mouseleave', () => {
+          isSliderPaused = false;
+          gsap.to(btn, { background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.1)', duration:0.3 });
+        });
+      });
     }
-  });
-
-  // Pause on mouse enter, resume on mouse leave
-  if (sliderTrack) {
-    sliderTrack.addEventListener('mouseenter', pauseAutoScroll);
-    sliderTrack.addEventListener('mouseleave', resumeAutoScroll);
   }
-
-  if (sliderPrev && sliderNext && sliderTrack) {
-    sliderPrev.addEventListener('click', () => {
-      pauseAutoScroll();
-      sliderTrack.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-      setTimeout(resumeAutoScroll, 1000);
-    });
-    sliderNext.addEventListener('click', () => {
-      pauseAutoScroll();
-      sliderTrack.scrollBy({ left: cardWidth, behavior: 'smooth' });
-      setTimeout(resumeAutoScroll, 1000);
-    });
-
-    // Hover effects on nav buttons
-    [sliderPrev, sliderNext].forEach(btn => {
-      btn.addEventListener('mouseenter', () => {
-        gsap.to(btn, { background:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.2)', duration:0.3 });
-      });
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.1)', duration:0.3 });
-      });
-    });
-  }
-
-  // Hover glow on revenue cards
-  document.querySelectorAll('.revenue-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      pauseAutoScroll();
-      gsap.to(card, { y:-8, duration:0.3, ease:'back.out(2)' });
-    });
-    card.addEventListener('mouseleave', () => {
-      resumeAutoScroll();
-      gsap.to(card, { y:0, duration:0.3 });
-    });
-  });
 
   // ═══════════════════════════════════════════
   // 3.75  TESTIMONIALS SECTION
