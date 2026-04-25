@@ -2589,18 +2589,88 @@
     });
   }});
 
-  // Slider nav buttons
+  // 3.5  REVENUE SLIDER SECTION
+  // ═══════════════════════════════════════════
+
+  // Headline reveal
+  ScrollTrigger.create({ trigger:'#revenue-section', start:'top 75%', onEnter() {
+    gsap.fromTo('#rev-label',    {opacity:0,y:16,scale:0.88}, {opacity:1,y:0,scale:1,duration:0.55,ease:'back.out(2)'});
+    gsap.fromTo('#rev-headline', {opacity:0,y:36},            {opacity:1,y:0,duration:0.7,delay:0.12,ease:'power3.out'});
+    gsap.fromTo('#rev-sub',      {opacity:0,y:16},            {opacity:1,y:0,duration:0.5,delay:0.28,ease:'power2.out'});
+    gsap.fromTo('#rev-stats',    {opacity:0,y:20},            {opacity:1,y:0,duration:0.6,delay:0.4,ease:'power2.out'});
+
+    // Cards stagger in from left
+    document.querySelectorAll('.revenue-card').forEach((card, i) => {
+      gsap.fromTo(card,
+        { opacity:0, x:-40 },
+        { opacity:1, x:0, duration:0.65, delay:0.35+i*0.08, ease:'power3.out' }
+      );
+    });
+  }});
+
+  // Auto-scroll slider with infinite loop
   const sliderTrack = document.getElementById('slider-track');
   const sliderPrev = document.getElementById('slider-prev');
   const sliderNext = document.getElementById('slider-next');
+  const sliderRevenue = document.getElementById('revenue-section');
   const cardWidth = 350 + 20; // card + gap
+  let autoScrollInterval;
+  let isAutoScrollPaused = false;
+
+  function startAutoScroll() {
+    if (autoScrollInterval) clearInterval(autoScrollInterval);
+    isAutoScrollPaused = false;
+    
+    autoScrollInterval = setInterval(() => {
+      if (sliderTrack && !isAutoScrollPaused) {
+        const scrollLeft = sliderTrack.scrollLeft;
+        const scrollWidth = sliderTrack.scrollWidth;
+        const clientWidth = sliderTrack.clientWidth;
+        
+        // If at end, loop back to start
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          gsap.to(sliderTrack, { scrollTo: 0, duration: 0.8, ease: 'power2.inOut' });
+        } else {
+          gsap.to(sliderTrack, { scrollTo: scrollLeft + cardWidth, duration: 0.8, ease: 'power2.inOut' });
+        }
+      }
+    }, 4000); // Auto-scroll every 4 seconds
+  }
+
+  function pauseAutoScroll() {
+    isAutoScrollPaused = true;
+  }
+
+  function resumeAutoScroll() {
+    isAutoScrollPaused = false;
+  }
+
+  // Start auto-scroll when slider comes into view
+  ScrollTrigger.create({
+    trigger: sliderRevenue,
+    start: 'top center',
+    onEnter: startAutoScroll,
+    onLeave: () => {
+      if (autoScrollInterval) clearInterval(autoScrollInterval);
+    }
+  });
+
+  // Pause on mouse enter, resume on mouse leave
+  if (sliderTrack) {
+    sliderTrack.addEventListener('mouseenter', pauseAutoScroll);
+    sliderTrack.addEventListener('mouseleave', resumeAutoScroll);
+  }
 
   if (sliderPrev && sliderNext && sliderTrack) {
     sliderPrev.addEventListener('click', () => {
+      pauseAutoScroll();
       sliderTrack.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      setTimeout(resumeAutoScroll, 1000);
     });
     sliderNext.addEventListener('click', () => {
+      pauseAutoScroll();
       sliderTrack.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      setTimeout(resumeAutoScroll, 1000);
     });
 
     // Hover effects on nav buttons
@@ -2617,9 +2687,11 @@
   // Hover glow on revenue cards
   document.querySelectorAll('.revenue-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
+      pauseAutoScroll();
       gsap.to(card, { y:-8, duration:0.3, ease:'back.out(2)' });
     });
     card.addEventListener('mouseleave', () => {
+      resumeAutoScroll();
       gsap.to(card, { y:0, duration:0.3 });
     });
   });
