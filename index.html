@@ -547,10 +547,267 @@
       .price-new { font-size: 2.2rem; }
       .pricing-card { padding: 28px 20px; }
     }
+
+    /* ═══════════════════════════════════════════
+       MODAL POPUP STYLES
+    ═══════════════════════════════════════════ */
+    @keyframes popupSlideIn {
+      0% {
+        transform: scale(0.7) translateY(-50px);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInBg {
+      from { opacity: 0; backdrop-filter: blur(0px); }
+      to { opacity: 1; backdrop-filter: blur(10px); }
+    }
+
+    @keyframes shimmerText {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      z-index: 5000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInBg 0.5s ease;
+      padding: 20px;
+    }
+
+    .modal-overlay.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, rgba(5,8,17,0.99) 0%, rgba(155,93,229,0.15) 100%);
+      border: 2px solid;
+      border-image: linear-gradient(135deg, #b5f021, #00f5d4, #9b5de5) 1;
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      animation: popupSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+    }
+
+    .modal-content::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(181,240,33,0.15) 0%, transparent 70%);
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .modal-content::after {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      left: -50%;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(0,245,212,0.1) 0%, transparent 70%);
+      animation: float 8s ease-in-out infinite reverse;
+      pointer-events: none;
+    }
+
+    .modal-body {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .modal-icon {
+      font-size: 3.5rem;
+      margin-bottom: 16px;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #b5f021, #00f5d4, #9b5de5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'Exo 2', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    .modal-subtitle {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .modal-highlight {
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ffffff 0%, #b5f021 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 28px;
+      animation: shimmerText 2s ease-in-out infinite;
+    }
+
+    .modal-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #b5f021, #00f5d4);
+      color: #050811;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(181,240,33,0.4);
+      font-family: 'Exo 2', sans-serif;
+      text-decoration: none;
+      margin-bottom: 12px;
+    }
+
+    .modal-button:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 40px rgba(181,240,33,0.6), 0 0 30px rgba(0,245,212,0.3);
+    }
+
+    .modal-button:active {
+      transform: scale(0.95);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #94a3b8;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .modal-close:hover {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    .modal-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,245,212,0.3), transparent);
+      margin: 24px 0;
+    }
+
+    .modal-extra {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .modal-content {
+        padding: 32px 20px;
+        max-width: 90vw;
+      }
+
+      .modal-title {
+        font-size: 1.5rem;
+      }
+
+      .modal-subtitle {
+        font-size: 0.9rem;
+      }
+
+      .modal-button {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+      }
+
+      .modal-close {
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+      }
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- ═══════════════════════════════════════════
+       WELCOME POPUP MODAL
+  ═══════════════════════════════════════════ -->
+  <div id="welcome-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close">✕</button>
+
+      <div class="modal-body">
+        <div class="modal-icon">🚀</div>
+
+        <h2 class="modal-title">Free Cohort Ending Soon!</h2>
+
+        <div class="modal-divider"></div>
+
+        <p class="modal-subtitle">
+          Join Community To Get Access To Our Only <span style="color: #b5f021; font-weight: 700;">Free Cohort</span>
+        </p>
+
+        <p class="modal-subtitle">
+          Next Cohort Will Be <span style="color: #f72585; font-weight: 700;">Paid</span>
+        </p>
+
+        <div class="modal-highlight">
+          ⏰ Limited Spots Available!
+        </div>
+
+        <a href="https://t.me/vibecitycommunity" target="_blank" rel="noopener" class="modal-button">
+          Join VibeCity Now ⚡
+        </a>
+
+        <p class="modal-extra">
+          Don't miss out on the free training opportunity
+        </p>
+      </div>
+    </div>
+  </div>
 
   <!-- ═══════════════════════════════════════════
        NAV
@@ -2296,6 +2553,89 @@
 
   <script>
   gsap.registerPlugin(ScrollTrigger);
+
+  // ═══════════════════════════════════════════
+  // WELCOME POPUP MODAL
+  // ═══════════════════════════════════════════
+  const modal = document.getElementById('welcome-modal');
+  const closeBtn = document.getElementById('modal-close');
+  const modalBtn = modal.querySelector('.modal-button');
+  
+  // Check if user already closed modal (localStorage)
+  function shouldShowModal() {
+    const closed = localStorage.getItem('vibecity-modal-closed');
+    const lastClosed = localStorage.getItem('vibecity-modal-time');
+    
+    if (!closed) return true;
+    
+    // Show modal again after 24 hours even if closed
+    if (lastClosed) {
+      const now = new Date().getTime();
+      const diff = now - parseInt(lastClosed);
+      const hours24 = 24 * 60 * 60 * 1000;
+      if (diff > hours24) return true;
+    }
+    
+    return false;
+  }
+  
+  // Show modal on page load (with delay)
+  if (shouldShowModal()) {
+    gsap.to(modal, {
+      duration: 0,
+      onComplete: () => {
+        modal.classList.remove('hidden');
+      }
+    });
+  } else {
+    modal.classList.add('hidden');
+  }
+  
+  // Close modal
+  function closeModal() {
+    gsap.to(modal, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.4,
+      ease: 'back.in',
+      onComplete: () => {
+        modal.classList.add('hidden');
+        localStorage.setItem('vibecity-modal-closed', 'true');
+        localStorage.setItem('vibecity-modal-time', new Date().getTime().toString());
+      }
+    });
+  }
+  
+  closeBtn.addEventListener('click', closeModal);
+  
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeModal();
+    }
+  });
+  
+  // Close when clicking outside modal (on overlay)
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+  
+  // Hover effect on button
+  modalBtn.addEventListener('mouseenter', () => {
+    gsap.to(modalBtn, {
+      boxShadow: '0 16px 50px rgba(181,240,33,0.8), 0 0 40px rgba(0,245,212,0.4)',
+      duration: 0.3
+    });
+  });
+  
+  modalBtn.addEventListener('mouseleave', () => {
+    gsap.to(modalBtn, {
+      boxShadow: '0 8px 25px rgba(181,240,33,0.4)',
+      duration: 0.3
+    });
+  });
 
   // ═══════════════════════════════════════════
   // SHARED UTILITY — global cursor spotlight
